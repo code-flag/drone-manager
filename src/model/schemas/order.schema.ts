@@ -9,14 +9,30 @@ const { Schema } = mongoose;
 
 const OrderSchema = new Schema(
   {
-    productId: { type: String, required: true },
-    userId: { type: String, required: true },
-    shippingId: { type: String, required: true },
+    productId: { 
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Product",
+    },
+    userId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "User",
+    },
+    shippingId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Shipping",
+    },
     status: { type: String, required: true },
-    isTracking: { type: String, required: true },
+    isTracking: { type: Boolean, required: true },
     paymentChannel: { type: String, required: true },
     paymentStatus: { type: String, required: true },
-    paymentId: { type: String, required: true },
+    paymentId: {
+      type: Schema.Types.ObjectId,
+      required: true,
+      ref: "Transactions",
+    },
     isDeleted: {
       type: Boolean,
       required: true,

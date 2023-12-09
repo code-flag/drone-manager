@@ -21,9 +21,10 @@ const UserSchema = new Schema<IUser>(
     phone: { type: String },
     avatar: { type: String },
     gender: { type: String },
-    address: { type: String },
+    addressPrimary: { type: String },
+    addressSecondary: { type: String },
+    shippingAddress: { type: String },
     regNo: { type: String },
-    userName: { type: String },
     secretBase: { type: String },
     otpAuthUrl: { type: String },
     email: {
@@ -110,6 +111,6 @@ interface UserDocument extends mongoose.Document, IUser {}
 const user = mongoose.model<
   UserDocument,
   mongoose.PaginateModel<UserDocument>
->("Users", UserSchema, "users");
+>("User", UserSchema, "user");
 
 export default user;

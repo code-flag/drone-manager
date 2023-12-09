@@ -45,7 +45,9 @@ export interface IUser {
   phone: string;
   avatar: string;
   gender?: string;
-  address?: string;
+  addressSecondary: string;
+  addressPrimary: string;
+  shippingAddress: string;
   email: string;
   regNo?: string;
   multiFactorAuth?: boolean;

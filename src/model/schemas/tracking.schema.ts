@@ -4,12 +4,13 @@ import { ICategory } from "./types/schema.types";
 const { Schema } = mongoose;
 
 const categorySchema = new Schema({
-  name: {type: String},
-  parentId: {type: String},
-  parentName: {type: String},
-  desc: {type: String},
-  image: {type: String},
-  type: {type: String},
+  orderId:  {
+    type: Schema.Types.ObjectId,
+    ref: "Order",
+  },
+  location: {type: String},
+  status: {type: String},
+  shipment: {type: String},  
 },
 {
   timestamps: true,

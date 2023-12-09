@@ -16,7 +16,7 @@ interface IDispute {
   description: string;
   disputeCategory: string;
   organization: any;
-  trx_reference: string;
+  txnId: string;
   name: string;
   email: String;
   image: string;

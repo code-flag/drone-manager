@@ -35,15 +35,13 @@ const {  Schema } = mongoose;
 
 const TransactionsSchema = new Schema<ITransaction>(
   {
-    organizationId: {
+    orderId: {
         type: Schema.Types.ObjectId,
-        ref: "Organization",
+        ref: "Order",
       },
-    organizationCategory: {type: String, required: true},
-    regNo: {type: String},
     userId: {
       type: Schema.Types.ObjectId,
-      ref: "Users",
+      ref: "User",
     },
       fullName: {type: String},
       status: {
@@ -61,7 +59,6 @@ const TransactionsSchema = new Schema<ITransaction>(
         type: String,
         default: null,
       },
-      purpose: [Purpose],
       reference: {
         type: String,
       },
