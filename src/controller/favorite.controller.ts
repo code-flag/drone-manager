@@ -75,7 +75,7 @@ export const getManyFavorite = async (req: any, res: any) => {
       throw new NotFoundError("Favorite product not found");
     }
   
-    returnMsg(res, favoriteId, "Favorite product retrieved successfully");
+    returnMsg(res, findFav, "Favorite product retrieved successfully");
   };
   
   export const deleteFavorite = async (req: any, res: any) => {

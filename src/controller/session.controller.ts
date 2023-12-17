@@ -74,7 +74,7 @@ export const getManyCart = async (req: any, res: any) => {
       throw new NotFoundError("Cart product not found");
     }
   
-    returnMsg(res, cartId, "Cart product retrieved successfully");
+    returnMsg(res, findCart, "Cart product retrieved successfully");
   };
   
   export const deleteCart = async (req: any, res: any) => {

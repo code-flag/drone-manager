@@ -1,7 +1,7 @@
 {
-  "name": "cpaat-messenger",
+  "name": "market-place",
   "version": "1.0.0",
-  "description": "In app messenger with any app type",
+  "description": "E-commerce website",
   "main": "app.js",
   "scripts": {
     "test": "mocha ./build/test",

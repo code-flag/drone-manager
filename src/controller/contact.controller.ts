@@ -89,7 +89,7 @@ export const getManyContact = async (req: any, res: any) => {
       throw new NotFoundError("Contact not found");
     }
   
-    returnMsg(res, contactId, "Contact retrieved successfully");
+    returnMsg(res, findContact, "Contact retrieved successfully");
   };
   
   export const deleteContact = async (req: any, res: any) => {

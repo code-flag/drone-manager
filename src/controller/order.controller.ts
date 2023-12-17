@@ -105,14 +105,14 @@ export const getManyCategory = async (req: any, res: any) => {
   };
   
 
-  export const getOneCategory = async (req: any, res: any) => {
+  export const getOneOrder = async (req: any, res: any) => {
     const { orderId } = req.query;
     const findOrder: any = await Order.findOne({ _id: orderId });
     if (!findOrder) {
       throw new NotFoundError("Product order not found");
     }
   
-    returnMsg(res, orderId, "Product order retrieved successfully");
+    returnMsg(res, findOrder, "Product order retrieved successfully");
   };
   
   export const deleteCategory = async (req: any, res: any) => {

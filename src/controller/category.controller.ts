@@ -112,7 +112,7 @@ export const getManyCategory = async (req: any, res: any) => {
       throw new NotFoundError("Category not found");
     }
   
-    returnMsg(res, categoryId, "Category retrieved successfully");
+    returnMsg(res, findCategory, "Category retrieved successfully");
   };
   
   export const deleteCategory = async (req: any, res: any) => {

@@ -148,7 +148,7 @@ export const getOneProduct = async (req: any, res: any) => {
     throw new NotFoundError("Product not found");
   }
 
-  returnMsg(res, productId, "Product retrieved successfully");
+  returnMsg(res, findProduct, "Product retrieved successfully");
 };
 
 export const deleteProduct = async (req: any, res: any) => {
