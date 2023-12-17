@@ -3,9 +3,9 @@ import { returnMsg } from "../helper/message-handler";
 import { Order } from "../model/index.schema";
 
 export const addCategory = async (req: any, res: any) => {
-    const data: ICategory = req.body;
+    const data: IOrder = req.body;
 
-    const order: any = await Order.findOne({ name: data.name });
+    const order: any = await Order.findOne({ productId: data.productId });
     if (order) {
       throw new ConflictError("Product order already exists");
     }
@@ -43,13 +43,13 @@ export const getManyCategory = async (req: any, res: any) => {
 
     const queries: any[] = [
       "orderId",
-      "name",
-      "parentId",
-      "desc",
-      "parentName",
-      "image",
-      "type",
-      "search"
+      "shippingId",
+      "productId",
+      "userId",
+      "paymentChannel",
+      "transactionId",
+      "paymentStatus",
+      "status",
     ];
     const matchQuery: any = {};
   

@@ -41,9 +41,15 @@ interface ICategory {
     type: string
 }
 
-interface ICategory {
-    name: string,
-    desc: string,
-    imageUrl: string,
-    type: string
+interface IOrder {
+    userId: string,
+    shippingId: string
+    productId: string
+}
+
+interface IShipping {
+    userId: string,
+    email: string,
+    phone: string,
+    address: string
 }

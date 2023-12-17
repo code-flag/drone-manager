@@ -361,7 +361,7 @@ export const loginUserWith2Fa = async (request: any, response: any) => {
 
 export const accessKey = async (request: any, response: any) => {
   const tokenData: any = {
-    appName: "huiospay-payment-gateway-app",
+    appName: "market-place-app",
     environment: process.env.NODE_ENV,
     lock: Date.now(),
   };

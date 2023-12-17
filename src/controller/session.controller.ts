@@ -2,29 +2,11 @@ import { Session } from "../model/index.schema";
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
 
-export const addCart = async (req: any, res: any) => {
-    const data: ICart = req.body;
 
-    const cart: any = await Session.findOne({ name: data.productId});
-    if (cart) {
-      throw new ConflictError("Product already added");
-    }
-  
-    const saveToCart: any = await Session.create(data);
-    if (!saveToCart) {
-      throw new BadRequestError("Something went wrong, could not save Cart product");
-    }
-    returnMsg(res, saveToCart, "Product added successfully");
-}
+export const getManySession= async (req: any, res: any) => {
+    const { limit = 10, offset = 0, userId, fromDate, toDate } = req.query;
 
-export const getManyCart = async (req: any, res: any) => {
-    const { limit = 10, offset = 0, fromDate, toDate } = req.query;
-
-    const queries: any[] = [
-      "productId",
-      "userId",
-    ];
-    const matchQuery: any = {};
+    const matchQuery: any = {userId: userId};
   
       /** search dispute by date created */
   if (fromDate && toDate) {
@@ -33,17 +15,10 @@ export const getManyCart = async (req: any, res: any) => {
       $lt: new Date(`${toDate}`).toISOString(),
     };
   }
-
-    Object.keys(req.query).forEach((element) => {
-            if (queries.includes(element)) {
-          matchQuery[element] = req.query[element];
-      }
-    });
   
     Session.paginate(
       matchQuery,
       {
-        populate: ["userId", "productId"],
         limit: limit,
         offset: offset,
         sort: {
@@ -59,7 +34,7 @@ export const getManyCart = async (req: any, res: any) => {
               result: result.docs,
               totalCount: result.totalDocs,
             },
-            "Cart product retrieved successfully"
+            "User session added retrieved successfully"
           );
         }
       }
@@ -67,24 +42,24 @@ export const getManyCart = async (req: any, res: any) => {
   };
   
 
-  export const getOneCart = async (req: any, res: any) => {
-    const { cartId } = req.query;
-    const findCart: any = await Session.findOne({ _id: cartId }).populate(["userId","productId"]);
-    if (!findCart) {
-      throw new NotFoundError("Cart product not found");
+  export const getOneSession = async (req: any, res: any) => {
+    const { sessionId } = req.query;
+    const findSession: any = await Session.findOne({ _id: sessionId }).populate(["sessionId","productId"]);
+    if (!findSession) {
+      throw new NotFoundError("User session added not found");
     }
   
-    returnMsg(res, findCart, "Cart product retrieved successfully");
+    returnMsg(res, findSession, "User session added retrieved successfully");
   };
   
   export const deleteCart = async (req: any, res: any) => {
-    const { cartId } = req.query;
-    const findCart: any = await Session.findOne({ _id: cartId });
-    if (!findCart) {
-      throw new NotFoundError("Cart product not found");
+    const { sessionId } = req.query;
+    const findSession: any = await Session.findOne({ _id: sessionId });
+    if (!findSession) {
+      throw new NotFoundError("User session added not found");
     }
   
-    const del = await Session.findByIdAndDelete({ _id: cartId });
-    returnMsg(res, [], "Cart product deleted successfully");
+    const del = await Session.findByIdAndDelete({ _id: sessionId });
+    returnMsg(res, [], "User session added deleted successfully");
   };
   

@@ -6,19 +6,19 @@ import { Favorite } from "../model/index.schema";
 export const addFavorite = async (req: any, res: any) => {
     const data: IFavorite = req.body;
 
-    const cart: any = await Favorite.findOne({ name: data.productId});
-    if (cart) {
+    const favorite: any = await Favorite.findOne({ productId: data.productId, userId: data.userId});
+    if (favorite) {
       throw new ConflictError("Product already added");
     }
   
-    const saveToCart: any = await Favorite.create(data);
-    if (!saveToCart) {
+    const saveToFavorite: any = await Favorite.create(data);
+    if (!saveToFavorite) {
       throw new BadRequestError("Something went wrong, could not save Favorite product");
     }
-    returnMsg(res, saveToCart, "Product added successfully");
+    returnMsg(res, saveToFavorite, "Product added successfully");
 }
 
-export const getManyFavorite = async (req: any, res: any) => {
+export const getUserFavoriteProductsPaginated = async (req: any, res: any) => {
     const { limit = 10, offset = 0, fromDate, toDate } = req.query;
 
     const queries: any[] = [
@@ -44,7 +44,7 @@ export const getManyFavorite = async (req: any, res: any) => {
     Favorite.paginate(
       matchQuery,
       {
-        populate: ["userId", "productId"],
+        populate: ["productId"],
         limit: limit,
         offset: offset,
         sort: {
@@ -68,9 +68,9 @@ export const getManyFavorite = async (req: any, res: any) => {
   };
   
 
-  export const getOneFavorite = async (req: any, res: any) => {
-    const { favoriteId } = req.query;
-    const findFav: any = await Favorite.findOne({ _id: favoriteId }).populate(["userId","productId"]);
+  export const getUserFavoriteProduct = async (req: any, res: any) => {
+    const { userId } = req.query;
+    const findFav: any = await Favorite.findOne({ userId: userId }).populate(["userId","productId"]);
     if (!findFav) {
       throw new NotFoundError("Favorite product not found");
     }

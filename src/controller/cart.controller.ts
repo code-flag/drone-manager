@@ -17,7 +17,7 @@ export const addCart = async (req: any, res: any) => {
     returnMsg(res, saveToCart, "Product added successfully");
 }
 
-export const getManyCart = async (req: any, res: any) => {
+export const getUserCartPaginated = async (req: any, res: any) => {
     const { limit = 10, offset = 0, fromDate, toDate } = req.query;
 
     const queries: any[] = [
@@ -68,8 +68,8 @@ export const getManyCart = async (req: any, res: any) => {
   
 
   export const getOneCart = async (req: any, res: any) => {
-    const { cartId } = req.query;
-    const findCart: any = await Cart.findOne({ _id: cartId }).populate(["userId","productId"]);
+    const { userId } = req.query;
+    const findCart: any = await Cart.findOne({ userId: userId }).populate(["userId","productId"]);
     if (!findCart) {
       throw new NotFoundError("Cart product not found");
     }
