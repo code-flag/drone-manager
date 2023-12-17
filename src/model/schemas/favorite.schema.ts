@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import { ICategory } from "./types/schema.types";
+import paginate from "mongoose-paginate-v2";
 
 const { Schema } = mongoose;
 
@@ -20,5 +21,17 @@ const favoriteSchema = new Schema({
 }
 );
 
-const Favorite = mongoose.model("favorite", favoriteSchema);
-export default Favorite;
+interface IFavorite {
+  [key: string]: any;
+}
+
+favoriteSchema.plugin(paginate);
+
+interface IFavoriteDocument extends mongoose.Document, IFavorite {}
+
+const favorite = mongoose.model<
+  IFavoriteDocument,
+  mongoose.PaginateModel<IFavoriteDocument>
+>("Favorite", favoriteSchema, "favorite");
+
+export default favorite;

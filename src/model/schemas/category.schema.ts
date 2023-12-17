@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import { ICategory } from "./types/schema.types";
+import paginate  from "mongoose-paginate-v2";
 
 const { Schema } = mongoose;
 
@@ -9,12 +9,24 @@ const categorySchema = new Schema({
   parentName: {type: String},
   desc: {type: String},
   image: {type: String},
-  type: {type: String},
+  type: {type: String, enum:["main", "sub"], default: "main", required: true}, // main or sub 
 },
 {
   timestamps: true,
 }
 );
 
-const Category = mongoose.model("category", categorySchema);
-export default Category;
+interface ICategory {
+  [key: string]: any
+}
+
+categorySchema.plugin(paginate);
+
+interface ICategoryDocument extends mongoose.Document, ICategory {}
+
+const category = mongoose.model<
+  ICategoryDocument,
+  mongoose.PaginateModel<ICategoryDocument>
+>("Category", categorySchema, "category");
+
+export default category;

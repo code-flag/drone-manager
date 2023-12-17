@@ -1,13 +1,7 @@
-"use strict";
-
-import mongoose, { PaginateModel, Types } from "mongoose";
-// import mongoosePaginate = require('mongoose-paginate-v2');
+import mongoose from "mongoose";
 import paginate from "mongoose-paginate-v2";
-import { config } from "dotenv";
 
-config();
-
-const { Schema, Document, model } = mongoose;
+const { Schema } = mongoose;
 
 interface IProduct {
   [key: string]: any;
@@ -22,14 +16,20 @@ categoryId:{
   required: true,
   ref: "Category",
 },
+subCategoryId:{
+  type: Schema.Types.ObjectId,
+  required: true,
+  ref: "Category",
+},
 sku: {type: String},
-qty: {type: String},
-price: {type: String},
-basePrice: {type: String},
-discountPrice: {type: String},
-discountPercentage: {type: String},
+quantity: {type: Number, default: 1},
+basePrice: {type: Number, required: true},
+discountPrice: {type: Number},
+discountPercentage: {type: Number},
 tags: [{type: String}],
 salesRegion: {type: String},
+reviews: {type: Number, default: 0},
+ratings: {type: Number, default: 0},
 isArchived: { type: Boolean, default: false },
 }, {
   timestamps: true

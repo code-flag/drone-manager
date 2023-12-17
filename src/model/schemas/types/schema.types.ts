@@ -82,9 +82,7 @@ export interface ITransaction {
   userId?: string;
   status: string;
   amount: number;
-  naration: string;
-  /** @property purpose - this is used to include details of what the payer is paying for */
-  purpose: [any];
+  narration?: string;
   /** this could be returned reference id from huiospay * */
   reference?: string;
   updatedBy?: [any];

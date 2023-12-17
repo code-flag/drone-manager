@@ -1,9 +1,8 @@
 import mongoose from "mongoose";
-import { ICategory } from "./types/schema.types";
 
 const { Schema } = mongoose;
 
-const categorySchema = new Schema({
+const trackingSchema = new Schema({
   orderId:  {
     type: Schema.Types.ObjectId,
     ref: "Order",
@@ -17,5 +16,5 @@ const categorySchema = new Schema({
 }
 );
 
-const Category = mongoose.model("category", categorySchema);
-export default Category;
+const tracking = mongoose.model("tracking", trackingSchema);
+export default tracking;

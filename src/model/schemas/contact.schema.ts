@@ -1,6 +1,6 @@
 import { config } from "dotenv";
 import mongoose  from 'mongoose';
-import mongoosePaginate from "mongoose-paginate-v2";
+import paginate  from "mongoose-paginate-v2";
 
 config();
 
@@ -22,25 +22,20 @@ interface IContact {
     phone: { type: String, require: true },
     subject: { type: String, require: true },
     message: { type: String,},
-    contactType: { type: [String], required: true, enum: ["Contact", "Support", "Enquiry"] },
+    contactType: { type: [String], required: true, enum: ["contact", "support", "enquiry"] },
     isRead: { type: Boolean, default: false },
    
   }); 
-  
+   
+ContactSchema.plugin(paginate);
 
-  ContactSchema.plugin(mongoosePaginate);
+interface IContactDocument extends mongoose.Document, IContact {}
 
-  interface ContactDocument extends mongoose.Document, IContact {}
-  const contact  = mongoose.model<IContact>('Contact', ContactSchema, "contact");
-  export default contact;
+const contact = mongoose.model<
+  IContactDocument,
+  mongoose.PaginateModel<IContactDocument>
+>("Contact", ContactSchema, "contact");
 
-
-
-
-
-
-
-
-
+export default contact;
 
 

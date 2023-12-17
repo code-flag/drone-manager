@@ -1,4 +1,5 @@
 import mongoose from "mongoose";
+import paginate from "mongoose-paginate-v2";
 const { Schema } = mongoose;
 
 const sessionSchema = new Schema({
@@ -12,5 +13,17 @@ const sessionSchema = new Schema({
 }
 );
 
-const Session = mongoose.model("session", sessionSchema);
-export default Session;
+interface ISession {
+  [key: string]: any;
+}
+
+sessionSchema.plugin(paginate);
+
+interface ISessionDocument extends mongoose.Document, ISession {}
+
+const session = mongoose.model<
+  ISessionDocument,
+  mongoose.PaginateModel<ISessionDocument>
+>("Session", sessionSchema, "session");
+
+export default session;

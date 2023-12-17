@@ -7,8 +7,10 @@
  * @param {string} mtype - message type <success or failed>
  * @returns Object
  */
-export const returnMsg = (retData: any, message: string, status: string = "success", status_code: number = 200) => {
+export const returnMsg = (res: any, retData: any, message: string, status: string = "success", status_code: number = 200) => {
     let msg;
+
+    status = status == "success" ? "success": "failed";
 
     msg = {
         status: status,
@@ -17,5 +19,5 @@ export const returnMsg = (retData: any, message: string, status: string = "succe
         message: message
     }
 
-    return msg;
+    return res.status(200).json(msg);
 }

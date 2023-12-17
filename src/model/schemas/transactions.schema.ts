@@ -21,18 +21,6 @@ const {  Schema } = mongoose;
     desc: {type: String}
   })
 
-  interface IPaymentPurpose {
-    id: string;
-    amount: number;
-    quantity: number;
-  }
-
-  const Purpose = new Schema<IPaymentPurpose>({
-    id: {type: String},
-    amount: {type: Number},
-    quantity: {type: Number}
-  })
-
 const TransactionsSchema = new Schema<ITransaction>(
   {
     orderId: {
@@ -55,7 +43,7 @@ const TransactionsSchema = new Schema<ITransaction>(
         required: true,
         min: 0,
       },
-      naration: {
+      narration: {
         type: String,
         default: null,
       },
