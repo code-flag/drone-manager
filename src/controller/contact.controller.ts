@@ -1,17 +1,69 @@
-import { Request, Response } from "express";
-import { BadRequestError, NotFoundError } from "../helper/error";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
 import { Contact } from "../model/index.schema";
+import { getUniqueId } from "../helper/unique-id";
 
 export const addContact = async (req: any, res: any) => {
-    const data: any = req.body;
+  const ticketId = await getUniqueId();
+  req.body.ticketId = ticketId
+    const data: IContact = req.body;
+
+    const isExist = await Contact.findOne({
+      ticketId
+    })
+  
+    if (isExist) {
+      throw new ConflictError("Ticket already exist");
+    }
+  
   
     const saveContact: any = await Contact.create(data);
     if (!saveContact) {
       throw new BadRequestError("Something went wrong, could not save Contact");
     }
-    returnMsg(res, saveContact, "Contact added successfully");
+      // send response email to user
+  try {
+    // const msgData: any = contactUsResponseMsg ({
+    //   name: contactData.name,
+    // });
+   
+    // const emailSubject = "Thank you for contacting us";
+    // await sendMail(
+    //   contactData.email,
+    //   emailSubject,
+    //   msgData.message,
+    //   msgData.attachment
+    // );
+  
+  } catch (error) {
+    console.log(error)
+  }
+
+    returnMsg(res, saveContact, "Message sent successfully, one of our representatives will contact you shortly!!");
 }
+
+
+export const getContactByEmail = async (req: any, res: any) => {
+const { email } = req.params;
+const contact = await Contact.find({ email: email });
+
+if (!contact) {
+  throw new BadRequestError("Contact not found");
+}
+returnMsg(res, contact, "Contact retrieved successfully");
+};
+
+// get by ticket ID
+export const getContactByTicketId = async (req: any, res: any) => {
+const { ticketId } = req.params;
+const contact = await Contact.findOne({ ticketId });
+
+if (!contact) {
+  throw new BadRequestError("Contact not found");
+}
+returnMsg(res, contact, "Contact retrieved successfully");
+};
+
 
 export const getManyContact = async (req: any, res: any) => {
     const { limit = 10, offset = 0, fromDate, toDate} = req.query;

@@ -53,3 +53,11 @@ interface IShipping {
     phone: string,
     address: string
 }
+
+interface IContact {
+    email: string;
+    phone: string;
+    subject: string;
+    message: string;
+    ticketId: string;
+}

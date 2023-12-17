@@ -2,45 +2,25 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import validator from "../middleware/validator";
-import {
-  validateChangePassword,
-  validateResetPassword,
-  validateUserLogin,
-} from "../validation/auth";
-import { accessKey, askToResetPassword, changePassword, confirmResetPassword, loginUser } from "controller/auth";
+import { addCart, deleteCart, getUserCartPaginated, getOneCart } from "controller/cart.controller";
 
 const router: any = Router();
 
 router.post(
-  "/login",
-//   verifyAccessKey,
-  validator(validateUserLogin),
-  asyncWrapper(loginUser)
+  "/create",
+  asyncWrapper(addCart)
 );
 
-router.post(
-  "/change-password",
-//   verifyAccessKey,
-//   verifyToken,
-  validator(validateChangePassword),
-  asyncWrapper(changePassword)
+router.get(
+  "/user/:cartId",
+  asyncWrapper(getOneCart)
 );
 
-router.post(
-  "/reset-password",
-//   verifyAccessKey,
-  validator(validateResetPassword),
-  asyncWrapper(askToResetPassword)
+router.get(
+  "/all",
+  asyncWrapper(getUserCartPaginated)
 );
 
-router.post(
-  "/reset-password-account",
-//   verifyAccessKey,
-  validator(validateResetPassword),
-  asyncWrapper(confirmResetPassword)
-);
-
-router.get("/access-key", asyncWrapper(accessKey));
+router.delete("/delete/:cartId", asyncWrapper(deleteCart));
 
 export default router;
