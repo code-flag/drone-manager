@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "In app messenger with any app type",
   "main": "app.js",
-  "type": "module",
   "scripts": {
     "test": "mocha ./build/test",
     "doc": "jsdoc -c jsdoc.json",

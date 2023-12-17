@@ -127,8 +127,9 @@ export const asyncUploadUserData = async (
   });
 
   Promise.all(result).then((x) => {
-    response.status(200).json(
+   
       returnMsg(
+        response,
         {
           totalRecord: total,
           completed: successCount,
@@ -138,8 +139,7 @@ export const asyncUploadUserData = async (
         successCount == 0
           ? `Unable to upload record, record already exist`
           : `${successCount} user record added successfully`
-      )
-    );
+      );
   });
 };
 

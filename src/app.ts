@@ -86,9 +86,7 @@ app.post(
   verifyToken,
   uploadProfilePic.single("file"),
   async function (req: any, res: Response, next: any) {
-    res
-      .status(200)
-      .json(returnMsg({ url: req.file.location }, "Successfully uploaded"));
+   returnMsg(res, { url: req.file.location }, "Successfully uploaded");
   }
 );
 
@@ -98,9 +96,7 @@ app.post(
   verifyToken,
   uploadKYCDocument.single("file"),
   async function (req: any, res: Response, next: any) {
-    res
-      .status(200)
-      .json(returnMsg({ url: req.file.location }, "Successfully uploaded"));
+   returnMsg(res, { url: req.file.location }, "Successfully uploaded");
   }
 );
 
@@ -110,9 +106,7 @@ app.post(
   verifyToken,
   disputeFileUpload.single("file"),
   async function (req: any, res: Response, next: any) {
-    res
-      .status(200)
-      .json(returnMsg({ url: req.file.location }, "Successfully uploaded"));
+   returnMsg(res, { url: req.file.location }, "Successfully uploaded");
   }
 );
 
@@ -123,9 +117,7 @@ app.post(
   verifyToken,
   uploadBigKYCDocument.single("file"),
   async function (req: any, res: Response, next: any) {
-    res
-      .status(200)
-      .json(returnMsg({ url: req.file.location }, "Successfully uploaded"));
+   returnMsg(res, { url: req.file.location }, "Successfully uploaded");
   }
 );
 
@@ -136,7 +128,7 @@ app.get("/_storage_/list/:dir", async (req: any, res: any) => {
       .listObjectsV2({ Bucket: `${process.env.AWS_S3_BUCKET}` })
       .promise();
     let mapData = resp.Contents.map((item: any) => item.Key);
-    res.status(200).json(returnMsg(mapData, "files successfully retrieved"));
+   returnMsg(res,mapData, "files successfully retrieved");
   } catch (error: any) {
     console.log("error", error);
   }
@@ -172,7 +164,7 @@ app.delete("/delete", async (req: any, res: any) => {
  const deletedData: any =  await s3
     .deleteObject({ Bucket: `${process.env.AWS_S3_BUCKET}`, Key: filename })
     .promise();
-  res.status(200).json(returnMsg(deletedData, "File Deleted Successfully"));
+  returnMsg(res,deletedData, "File Deleted Successfully");
 });
 
 /** ================================== Invalid route response ================================ */
