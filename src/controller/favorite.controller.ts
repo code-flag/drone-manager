@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Favorite } from "model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Favorite } from "../model/index.schema";
 
 export const addFavorite = async (req: any, res: any) => {
     const data: IFavorite = req.body;

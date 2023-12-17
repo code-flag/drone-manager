@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { ICategory } from "./types/schema.types";
 import paginate from "mongoose-paginate-v2";
 
 const { Schema } = mongoose;

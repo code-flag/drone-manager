@@ -1,7 +1,6 @@
-import { Request, Response } from "express";
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Cart } from "model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Cart } from "../model/index.schema";
 
 export const addCart = async (req: any, res: any) => {
     const data: ICart = req.body;

@@ -40,3 +40,10 @@ interface ICategory {
     imageUrl: string,
     type: string
 }
+
+interface ICategory {
+    name: string,
+    desc: string,
+    imageUrl: string,
+    type: string
+}

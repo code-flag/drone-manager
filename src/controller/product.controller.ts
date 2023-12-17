@@ -1,6 +1,6 @@
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Product } from "model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Product } from "../model/index.schema";
 
 export const addProduct = async (req: any, res: any) => {
   const product: IProduct = req.body;

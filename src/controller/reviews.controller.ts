@@ -1,9 +1,9 @@
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Review } from "model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Review } from "../model/index.schema";
 
 export const addReview = async (req: any, res: any) => {
-    const data: IReview = req.body;
+    const data: IReviews = req.body;
 
     const review: any = await Review.findOne({ productId: data.productId, userId: data.userId });
     if (review) {

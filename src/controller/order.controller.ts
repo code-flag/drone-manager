@@ -1,6 +1,6 @@
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Order } from "model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Order } from "../model/index.schema";
 
 export const addCategory = async (req: any, res: any) => {
     const data: ICategory = req.body;

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
-import { BadRequestError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Contact } from "model/index.schema";
+import { BadRequestError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
+import { Contact } from "../model/index.schema";
 
 export const addContact = async (req: any, res: any) => {
     const data: any = req.body;

@@ -1,20 +1,16 @@
-import { Request, Response } from "express";
-import { returnMsg } from "helper/message-handler";
-import { Session } from "model/index.schema";
-import { Request, Response } from "express";
-import { BadRequestError, ConflictError, NotFoundError } from "helper/error";
-import { returnMsg } from "helper/message-handler";
-import { Cart } from "model/index.schema";
+import { Session } from "../model/index.schema";
+import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
+import { returnMsg } from "../helper/message-handler";
 
 export const addCart = async (req: any, res: any) => {
     const data: ICart = req.body;
 
-    const cart: any = await Cart.findOne({ name: data.productId});
+    const cart: any = await Session.findOne({ name: data.productId});
     if (cart) {
       throw new ConflictError("Product already added");
     }
   
-    const saveToCart: any = await Cart.create(data);
+    const saveToCart: any = await Session.create(data);
     if (!saveToCart) {
       throw new BadRequestError("Something went wrong, could not save Cart product");
     }
@@ -44,7 +40,7 @@ export const getManyCart = async (req: any, res: any) => {
       }
     });
   
-    Cart.paginate(
+    Session.paginate(
       matchQuery,
       {
         populate: ["userId", "productId"],
@@ -73,7 +69,7 @@ export const getManyCart = async (req: any, res: any) => {
 
   export const getOneCart = async (req: any, res: any) => {
     const { cartId } = req.query;
-    const findCart: any = await Cart.findOne({ _id: cartId }).populate(["userId","productId"]);
+    const findCart: any = await Session.findOne({ _id: cartId }).populate(["userId","productId"]);
     if (!findCart) {
       throw new NotFoundError("Cart product not found");
     }
@@ -83,12 +79,12 @@ export const getManyCart = async (req: any, res: any) => {
   
   export const deleteCart = async (req: any, res: any) => {
     const { cartId } = req.query;
-    const findCart: any = await Cart.findOne({ _id: cartId });
+    const findCart: any = await Session.findOne({ _id: cartId });
     if (!findCart) {
       throw new NotFoundError("Cart product not found");
     }
   
-    const del = await Cart.findByIdAndDelete({ _id: cartId });
+    const del = await Session.findByIdAndDelete({ _id: cartId });
     returnMsg(res, [], "Cart product deleted successfully");
   };
   
