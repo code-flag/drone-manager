@@ -77,7 +77,7 @@ const staffSchema = new Schema<IStaff>(
     isDeleted: {
       type: Boolean,
       required: true,
-      default: false,
+      default: true,
     },
     isActive: {
       type: Boolean,
