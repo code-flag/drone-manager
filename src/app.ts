@@ -19,6 +19,7 @@ import {
 import { verifyAccessKey, verifyToken } from "./middleware/auth";
 import { returnMsg } from "./helper/message-handler";
 import { limiter } from "./middleware/apiRateLimit";
+import router from "./routes/index.route";
 
 dotEnv.config();
 const app: any = express();
@@ -68,7 +69,7 @@ if (
 
 /** ======================================= API ROUTES =======================================*/
 app.use(limiter);
-// app.use(router);
+app.use(router);
 
 app.get("/", (request: any, response: any) => {
   response.status(200).json({
