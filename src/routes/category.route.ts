@@ -16,8 +16,6 @@ router.put(
   asyncWrapper(updateCategory)
 );
 
-
-
 router.get(
     "/all",
     asyncWrapper(getManyCategory)

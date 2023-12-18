@@ -1,9 +1,14 @@
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
-import { Review } from "../model/index.schema";
+import { Product, Review } from "../model/index.schema";
 
 export const addReview = async (req: any, res: any) => {
     const data: IReviews = req.body;
+
+    const product: any = await Product.findOne({ _id: data.productId});
+    if (product) {
+      throw new ConflictError("Product does not exists");
+    }
 
     const review: any = await Review.findOne({ productId: data.productId, userId: data.userId });
     if (review) {
@@ -18,6 +23,28 @@ export const addReview = async (req: any, res: any) => {
     if (!saveReview) {
       throw new BadRequestError("Something went wrong, could not save Review");
     }
+
+
+    const [star1, star2, star3, star4, star5] = await Promise.all([
+      Review.count({rating: 1}),
+      Review.count({rating: 2}),
+      Review.count({rating: 3}),
+      Review.count({rating: 4}),
+      Review.count({rating: 5}),
+  ]);
+  
+  const revw = star1 + star2 + star3 + star4 + star5
+  const rating = ((1 * star1) + (2 * star2) + (3 * star3) + (4 * star4) + (5 * star5) ) / revw
+
+ try {
+  await Product.findOneAndUpdate({_id: data.productId }, {
+    $set: {ratings: rating, reviews: revw}
+  }, {new: true});
+
+ } catch (error: any) {
+    console.log("rating error", error?.message);
+ }
+
     returnMsg(res, saveReview, "Review added successfully");
 }
 
@@ -39,7 +66,6 @@ export const updateReview = async (req: any, res: any) => {
     }
   );
   returnMsg(res, putReview, "Review updated successfully");
-
 }
 
 export const getManyReview = async (req: any, res: any) => {

@@ -2,7 +2,7 @@ import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
 import { Order } from "../model/index.schema";
 
-export const addCategory = async (req: any, res: any) => {
+export const addOrder = async (req: any, res: any) => {
     const data: IOrder = req.body;
 
     const order: any = await Order.findOne({ productId: data.productId });
@@ -12,12 +12,12 @@ export const addCategory = async (req: any, res: any) => {
   
     const saveOrder: any = await Order.create(data);
     if (!saveOrder) {
-      throw new BadRequestError("Something went wrong, could not save Category");
+      throw new BadRequestError("Something went wrong, could not save Order");
     }
     returnMsg(res, saveOrder, "Product order added successfully");
 }
 
-export const updateCategory = async (req: any, res: any) => {
+export const updateOrder = async (req: any, res: any) => {
 
     const { orderId } = req.params;
   if (!orderId) {
@@ -38,7 +38,7 @@ export const updateCategory = async (req: any, res: any) => {
 
 }
 
-export const getManyCategory = async (req: any, res: any) => {
+export const getManyOrder = async (req: any, res: any) => {
     const { limit = 10, offset = 0, fromDate, toDate } = req.query;
 
     const queries: any[] = [
@@ -81,7 +81,7 @@ export const getManyCategory = async (req: any, res: any) => {
     Order.paginate(
       matchQuery,
       {
-        populate: [{path: 'parentId'}],
+        populate: [{path: 'userId'}, {path: "productId"}],
         limit: limit,
         offset: offset,
         sort: {
@@ -115,7 +115,7 @@ export const getManyCategory = async (req: any, res: any) => {
     returnMsg(res, findOrder, "Product order retrieved successfully");
   };
   
-  export const deleteCategory = async (req: any, res: any) => {
+  export const deleteOrder = async (req: any, res: any) => {
     const { orderId } = req.query;
     const findOrder: any = await Order.findOne({ _id: orderId });
     if (!findOrder) {
