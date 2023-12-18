@@ -8,7 +8,7 @@ import {
   validateResetPassword,
   validateUserLogin,
 } from "../validation/auth";
-import { accessKey, askToResetPassword, changePassword, confirmResetPassword, loginUser } from "controller/auth";
+import { accessKey, askToResetPassword, changePassword, confirmResetPassword, loginUser } from "../controller/auth";
 
 const router: any = Router();
 

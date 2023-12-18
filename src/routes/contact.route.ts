@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
-import { addContact, deleteContact, getContactByEmail, getContactByTicketId, getManyContact, getOneContact } from "controller/contact.controller";
+import { addContact, deleteContact, getContactByEmail, getContactByTicketId, getManyContact, getOneContact } from "../controller/contact.controller";
 
 const router: any = Router();
 

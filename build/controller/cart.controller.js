@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCart = exports.getOneCart = exports.getManyCart = exports.addCart = void 0;
+exports.deleteCart = exports.getOneCart = exports.getUserCartPaginated = exports.addCart = void 0;
 const error_1 = require("../helper/error");
 const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
@@ -26,7 +26,7 @@ const addCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     (0, message_handler_1.returnMsg)(res, saveToCart, "Product added successfully");
 });
 exports.addCart = addCart;
-const getManyCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+const getUserCartPaginated = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { limit = 10, offset = 0, fromDate, toDate } = req.query;
     const queries = [
         "productId",
@@ -62,14 +62,14 @@ const getManyCart = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
         }
     });
 });
-exports.getManyCart = getManyCart;
+exports.getUserCartPaginated = getUserCartPaginated;
 const getOneCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cartId } = req.query;
-    const findCart = yield index_schema_1.Cart.findOne({ _id: cartId }).populate(["userId", "productId"]);
+    const { userId } = req.query;
+    const findCart = yield index_schema_1.Cart.findOne({ userId: userId }).populate(["userId", "productId"]);
     if (!findCart) {
         throw new error_1.NotFoundError("Cart product not found");
     }
-    (0, message_handler_1.returnMsg)(res, cartId, "Cart product retrieved successfully");
+    (0, message_handler_1.returnMsg)(res, findCart, "Cart product retrieved successfully");
 });
 exports.getOneCart = getOneCart;
 const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

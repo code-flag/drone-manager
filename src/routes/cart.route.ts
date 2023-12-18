@@ -2,7 +2,7 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import { addCart, deleteCart, getUserCartPaginated, getOneCart } from "controller/cart.controller";
+import { addCart, deleteCart, getUserCartPaginated, getOneCart } from "../controller/cart.controller";
 
 const router: any = Router();
 

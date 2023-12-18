@@ -27,6 +27,7 @@ const file_storage_1 = require("./config/file-storage");
 const auth_1 = require("./middleware/auth");
 const message_handler_1 = require("./helper/message-handler");
 const apiRateLimit_1 = require("./middleware/apiRateLimit");
+const index_route_1 = __importDefault(require("./routes/index.route"));
 dotenv_1.default.config();
 const app = (0, express_1.default)();
 app.use(express_1.default.json({ limit: "50mb" }));
@@ -49,6 +50,8 @@ app.use((0, cors_1.default)({
 // Body Parser middleware
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
+// app.set('trust proxy', '127.0.0.1');
+app.set('trust proxy', true);
 // this is added to be able to use import.meta.value for email attachment
 /** ============================= Helmet for securing api request headers =================== */
 app.use((0, helmet_1.default)());
@@ -59,7 +62,7 @@ if (["development", "production"].includes(process.env.NODE_ENV || "development"
 // app.use(express.static(path.join(__dirname,'public')));
 /** ======================================= API ROUTES =======================================*/
 app.use(apiRateLimit_1.limiter);
-// app.use(router);
+app.use(index_route_1.default);
 app.get("/", (request, response) => {
     response.status(200).json({
         status: "success",

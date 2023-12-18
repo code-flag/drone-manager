@@ -2,7 +2,7 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import { addCategory, deleteCategory, getManyCategory, getOneCategory, updateCategory } from "controller/category.controller";
+import { addCategory, deleteCategory, getManyCategory, getOneCategory, updateCategory } from "../controller/category.controller";
 
 const router: any = Router();
 

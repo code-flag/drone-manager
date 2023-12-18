@@ -129,7 +129,7 @@ const getOneProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     if (!findProduct) {
         throw new error_1.NotFoundError("Product not found");
     }
-    (0, message_handler_1.returnMsg)(res, productId, "Product retrieved successfully");
+    (0, message_handler_1.returnMsg)(res, findProduct, "Product retrieved successfully");
 });
 exports.getOneProduct = getOneProduct;
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

@@ -20,7 +20,7 @@ const ShippingSchema = new Schema({
         unique: true,
     },
     phone: { type: String },
-    address: { type: String },
+    address: { type: String, required: true },
 }, {
     timestamps: true,
 });

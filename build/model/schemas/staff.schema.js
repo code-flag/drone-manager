@@ -80,7 +80,7 @@ const staffSchema = new Schema({
     isDeleted: {
         type: Boolean,
         required: true,
-        default: false,
+        default: true,
     },
     isActive: {
         type: Boolean,

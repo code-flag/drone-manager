@@ -101,7 +101,7 @@ const getOneCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
     if (!findCategory) {
         throw new error_1.NotFoundError("Category not found");
     }
-    (0, message_handler_1.returnMsg)(res, categoryId, "Category retrieved successfully");
+    (0, message_handler_1.returnMsg)(res, findCategory, "Category retrieved successfully");
 });
 exports.getOneCategory = getOneCategory;
 const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {

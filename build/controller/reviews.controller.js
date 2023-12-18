@@ -9,12 +9,16 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteReview = exports.getOneReview = exports.getManyReview = exports.updateReview = exports.addReview = void 0;
+exports.deleteReview = exports.getProductReview = exports.getOneReview = exports.getManyReview = exports.updateReview = exports.addReview = void 0;
 const error_1 = require("../helper/error");
 const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
 const addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    const product = yield index_schema_1.Product.findOne({ _id: data.productId });
+    if (product) {
+        throw new error_1.ConflictError("Product does not exists");
+    }
     const review = yield index_schema_1.Review.findOne({ productId: data.productId, userId: data.userId });
     if (review) {
         throw new error_1.ConflictError("Review already exists");
@@ -25,6 +29,23 @@ const addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const saveReview = yield index_schema_1.Review.create(data);
     if (!saveReview) {
         throw new error_1.BadRequestError("Something went wrong, could not save Review");
+    }
+    const [star1, star2, star3, star4, star5] = yield Promise.all([
+        index_schema_1.Review.count({ rating: 1 }),
+        index_schema_1.Review.count({ rating: 2 }),
+        index_schema_1.Review.count({ rating: 3 }),
+        index_schema_1.Review.count({ rating: 4 }),
+        index_schema_1.Review.count({ rating: 5 }),
+    ]);
+    const revw = star1 + star2 + star3 + star4 + star5;
+    const rating = ((1 * star1) + (2 * star2) + (3 * star3) + (4 * star4) + (5 * star5)) / revw;
+    try {
+        yield index_schema_1.Product.findOneAndUpdate({ _id: data.productId }, {
+            $set: { ratings: rating, reviews: revw }
+        }, { new: true });
+    }
+    catch (error) {
+        console.log("rating error", error === null || error === void 0 ? void 0 : error.message);
     }
     (0, message_handler_1.returnMsg)(res, saveReview, "Review added successfully");
 });
@@ -95,9 +116,18 @@ const getOneReview = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     if (!findReview) {
         throw new error_1.NotFoundError("Review not found");
     }
-    (0, message_handler_1.returnMsg)(res, reviewId, "Review retrieved successfully");
+    (0, message_handler_1.returnMsg)(res, findReview, "Review retrieved successfully");
 });
 exports.getOneReview = getOneReview;
+const getProductReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { productId } = req.query;
+    const findReview = yield index_schema_1.Review.findOne({ productId: productId }).populate(['userId', 'projectId']);
+    if (!findReview) {
+        throw new error_1.NotFoundError("Review not found");
+    }
+    (0, message_handler_1.returnMsg)(res, findReview, "Review retrieved successfully");
+});
+exports.getProductReview = getProductReview;
 const deleteReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { reviewId } = req.query;
     const findReview = yield index_schema_1.Review.findOne({ _id: reviewId });

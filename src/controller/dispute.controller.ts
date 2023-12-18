@@ -3,7 +3,7 @@ import { returnMsg } from "../helper/message-handler";
 import { sendMail } from "../helper/mailer";
 import { generateDisputeTicketID } from "../helper/unique-id";
 import Dispute from "../model/schemas/dispute.schema";
-import { Order } from "model/index.schema";
+import { Order } from "../model/index.schema";
 
 export const createDispute = async (req: any, res: any) => {
   const disputeData: any = req.body;

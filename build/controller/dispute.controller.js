@@ -18,7 +18,7 @@ const message_handler_1 = require("../helper/message-handler");
 const mailer_1 = require("../helper/mailer");
 const unique_id_1 = require("../helper/unique-id");
 const dispute_schema_1 = __importDefault(require("../model/schemas/dispute.schema"));
-const index_schema_1 = require("model/index.schema");
+const index_schema_1 = require("../model/index.schema");
 const createDispute = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a, _b, _c, _d, _e;
     const disputeData = req.body;

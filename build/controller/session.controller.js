@@ -9,30 +9,13 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCart = exports.getOneCart = exports.getManyCart = exports.addCart = void 0;
+exports.deleteCart = exports.getOneSession = exports.getManySession = void 0;
 const index_schema_1 = require("../model/index.schema");
 const error_1 = require("../helper/error");
 const message_handler_1 = require("../helper/message-handler");
-const addCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const data = req.body;
-    const cart = yield index_schema_1.Session.findOne({ name: data.productId });
-    if (cart) {
-        throw new error_1.ConflictError("Product already added");
-    }
-    const saveToCart = yield index_schema_1.Session.create(data);
-    if (!saveToCart) {
-        throw new error_1.BadRequestError("Something went wrong, could not save Cart product");
-    }
-    (0, message_handler_1.returnMsg)(res, saveToCart, "Product added successfully");
-});
-exports.addCart = addCart;
-const getManyCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { limit = 10, offset = 0, fromDate, toDate } = req.query;
-    const queries = [
-        "productId",
-        "userId",
-    ];
-    const matchQuery = {};
+const getManySession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { limit = 10, offset = 0, userId, fromDate, toDate } = req.query;
+    const matchQuery = { userId: userId };
     /** search dispute by date created */
     if (fromDate && toDate) {
         matchQuery["createdAt"] = {
@@ -40,13 +23,7 @@ const getManyCart = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             $lt: new Date(`${toDate}`).toISOString(),
         };
     }
-    Object.keys(req.query).forEach((element) => {
-        if (queries.includes(element)) {
-            matchQuery[element] = req.query[element];
-        }
-    });
     index_schema_1.Session.paginate(matchQuery, {
-        populate: ["userId", "productId"],
         limit: limit,
         offset: offset,
         sort: {
@@ -58,27 +35,27 @@ const getManyCart = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
             (0, message_handler_1.returnMsg)(res, {
                 result: result.docs,
                 totalCount: result.totalDocs,
-            }, "Cart product retrieved successfully");
+            }, "User session added retrieved successfully");
         }
     });
 });
-exports.getManyCart = getManyCart;
-const getOneCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cartId } = req.query;
-    const findCart = yield index_schema_1.Session.findOne({ _id: cartId }).populate(["userId", "productId"]);
-    if (!findCart) {
-        throw new error_1.NotFoundError("Cart product not found");
+exports.getManySession = getManySession;
+const getOneSession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { sessionId } = req.query;
+    const findSession = yield index_schema_1.Session.findOne({ _id: sessionId }).populate(["sessionId", "productId"]);
+    if (!findSession) {
+        throw new error_1.NotFoundError("User session added not found");
     }
-    (0, message_handler_1.returnMsg)(res, cartId, "Cart product retrieved successfully");
+    (0, message_handler_1.returnMsg)(res, findSession, "User session added retrieved successfully");
 });
-exports.getOneCart = getOneCart;
+exports.getOneSession = getOneSession;
 const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cartId } = req.query;
-    const findCart = yield index_schema_1.Session.findOne({ _id: cartId });
-    if (!findCart) {
-        throw new error_1.NotFoundError("Cart product not found");
+    const { sessionId } = req.query;
+    const findSession = yield index_schema_1.Session.findOne({ _id: sessionId });
+    if (!findSession) {
+        throw new error_1.NotFoundError("User session added not found");
     }
-    const del = yield index_schema_1.Session.findByIdAndDelete({ _id: cartId });
-    (0, message_handler_1.returnMsg)(res, [], "Cart product deleted successfully");
+    const del = yield index_schema_1.Session.findByIdAndDelete({ _id: sessionId });
+    (0, message_handler_1.returnMsg)(res, [], "User session added deleted successfully");
 });
 exports.deleteCart = deleteCart;

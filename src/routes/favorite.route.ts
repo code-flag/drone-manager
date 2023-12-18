@@ -2,7 +2,7 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import { addFavorite, deleteFavorite, getUserFavoriteProduct, getUserFavoriteProductsPaginated } from "controller/favorite.controller";
+import { addFavorite, deleteFavorite, getUserFavoriteProduct, getUserFavoriteProductsPaginated } from "../controller/favorite.controller";
 
 const router: any = Router();
 
