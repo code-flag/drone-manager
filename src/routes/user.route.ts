@@ -62,7 +62,7 @@ router.post("/resend-otp/:userId", verifyAccessKey, asyncWrapper(resendOtp));
 
 router.post(
   "/confirmation/otp",
-  verifyAccessKey,
+  // verifyAccessKey,
   asyncWrapper(verifyRegConfirmationOTP)
 );
 
