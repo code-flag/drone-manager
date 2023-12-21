@@ -43,7 +43,7 @@ export const getManySession= async (req: any, res: any) => {
   
 
   export const getOneSession = async (req: any, res: any) => {
-    const { sessionId } = req.query;
+    const { sessionId } = req.params;
     const findSession: any = await Session.findOne({ _id: sessionId }).populate(["sessionId","productId"]);
     if (!findSession) {
       throw new NotFoundError("User session added not found");
@@ -53,7 +53,7 @@ export const getManySession= async (req: any, res: any) => {
   };
   
   export const deleteCart = async (req: any, res: any) => {
-    const { sessionId } = req.query;
+    const { sessionId } = req.params;
     const findSession: any = await Session.findOne({ _id: sessionId });
     if (!findSession) {
       throw new NotFoundError("User session added not found");

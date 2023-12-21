@@ -124,7 +124,7 @@ const getManyProduct = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getManyProduct = getManyProduct;
 const getOneProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { productId } = req.query;
+    const { productId } = req.params;
     const findProduct = yield index_schema_1.Product.findOne({ _id: productId });
     if (!findProduct) {
         throw new error_1.NotFoundError("Product not found");
@@ -133,7 +133,7 @@ const getOneProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getOneProduct = getOneProduct;
 const deleteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { productId } = req.query;
+    const { productId } = req.params;
     const findProduct = yield index_schema_1.Product.findOne({ _id: productId });
     if (!findProduct) {
         throw new error_1.NotFoundError("Product not found");

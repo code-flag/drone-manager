@@ -96,7 +96,7 @@ const getManyOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.getManyOrder = getManyOrder;
 const getOneOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { orderId } = req.query;
+    const { orderId } = req.params;
     const findOrder = yield index_schema_1.Order.findOne({ _id: orderId });
     if (!findOrder) {
         throw new error_1.NotFoundError("Product order not found");
@@ -105,7 +105,7 @@ const getOneOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* ()
 });
 exports.getOneOrder = getOneOrder;
 const deleteOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { orderId } = req.query;
+    const { orderId } = req.params;
     const findOrder = yield index_schema_1.Order.findOne({ _id: orderId });
     if (!findOrder) {
         throw new error_1.NotFoundError("Product order not found");

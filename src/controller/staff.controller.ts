@@ -229,7 +229,7 @@ export const verifyOTP = async (req: any, res: any) => {
 };
 
 export const verifyRegConfirmationOTP = async (req: any, res: any) => {
-  const { otp, staffId } = req.query;
+  const { otp, staffId } = req.params;
 
   const doc: any = await Staff.findOne({ _id: staffId }, "+otp +otpTime");
 

@@ -106,7 +106,7 @@ export const getManyOrder = async (req: any, res: any) => {
   
 
   export const getOneOrder = async (req: any, res: any) => {
-    const { orderId } = req.query;
+    const { orderId } = req.params;
     const findOrder: any = await Order.findOne({ _id: orderId });
     if (!findOrder) {
       throw new NotFoundError("Product order not found");
@@ -116,7 +116,7 @@ export const getManyOrder = async (req: any, res: any) => {
   };
   
   export const deleteOrder = async (req: any, res: any) => {
-    const { orderId } = req.query;
+    const { orderId } = req.params;
     const findOrder: any = await Order.findOne({ _id: orderId });
     if (!findOrder) {
       throw new NotFoundError("Product order not found");

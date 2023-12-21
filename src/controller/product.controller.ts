@@ -142,7 +142,7 @@ export const getManyProduct = async (req: any, res: any) => {
 };
 
 export const getOneProduct = async (req: any, res: any) => {
-  const { productId } = req.query;
+  const { productId } = req.params;
   const findProduct: any = await Product.findOne({ _id: productId });
   if (!findProduct) {
     throw new NotFoundError("Product not found");
@@ -152,7 +152,7 @@ export const getOneProduct = async (req: any, res: any) => {
 };
 
 export const deleteProduct = async (req: any, res: any) => {
-  const { productId } = req.query;
+  const { productId } = req.params;
   const findProduct: any = await Product.findOne({ _id: productId });
   if (!findProduct) {
     throw new NotFoundError("Product not found");

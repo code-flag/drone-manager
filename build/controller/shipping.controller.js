@@ -60,7 +60,7 @@ const getManyShipping = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.getManyShipping = getManyShipping;
 const getOneShipping = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { shippingId } = req.query;
+    const { shippingId } = req.params;
     const findShipping = yield index_schema_1.Shipping.findOne({ _id: shippingId }).populate(["userId", "shippingId"]);
     if (!findShipping) {
         throw new error_1.NotFoundError("Shipping not found");
@@ -69,7 +69,7 @@ const getOneShipping = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getOneShipping = getOneShipping;
 const deleteShipping = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { shippingId } = req.query;
+    const { shippingId } = req.params;
     const findShipping = yield index_schema_1.Shipping.findOne({ _id: shippingId });
     if (!findShipping) {
         throw new error_1.NotFoundError("Shipping not found");

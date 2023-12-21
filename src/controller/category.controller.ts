@@ -1,3 +1,4 @@
+import { Request } from "express";
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
 import { Category } from "../model/index.schema";
@@ -106,7 +107,7 @@ export const getManyCategory = async (req: any, res: any) => {
   
 
   export const getOneCategory = async (req: any, res: any) => {
-    const { categoryId } = req.query;
+    const { categoryId } = req.params;
     const findCategory: any = await Category.findOne({ _id: categoryId }).populate("parentId");
     if (!findCategory) {
       throw new NotFoundError("Category not found");
@@ -116,8 +117,8 @@ export const getManyCategory = async (req: any, res: any) => {
   };
 
   export const getCategoryByType = async (req: any, res: any) => {
-    const { type } = req.query;
-    const findCategory: any = await Category.findOne({ type: type }).populate("parentId");
+    const { type } = req.params;
+    const findCategory: any = await Category.find({ type: type }).populate("parentId");
     if (!findCategory) {
       throw new NotFoundError("Category not found");
     }
@@ -126,7 +127,7 @@ export const getManyCategory = async (req: any, res: any) => {
   };
   
   export const deleteCategory = async (req: any, res: any) => {
-    const { categoryId } = req.query;
+    const { categoryId } = req.params;
     const findCategory: any = await Category.findOne({ _id: categoryId });
     if (!findCategory) {
       throw new NotFoundError("Category not found");

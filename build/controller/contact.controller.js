@@ -122,7 +122,7 @@ const getManyContact = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getManyContact = getManyContact;
 const getOneContact = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { contactId } = req.query;
+    const { contactId } = req.params;
     const findContact = yield index_schema_1.Contact.findOne({ _id: contactId });
     if (!findContact) {
         throw new error_1.NotFoundError("Contact not found");
@@ -131,7 +131,7 @@ const getOneContact = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getOneContact = getOneContact;
 const deleteContact = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { contactId } = req.query;
+    const { contactId } = req.params;
     const findContact = yield index_schema_1.Contact.findOne({ _id: contactId });
     if (!findContact) {
         throw new error_1.NotFoundError("Contact not found");

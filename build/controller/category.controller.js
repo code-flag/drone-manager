@@ -96,7 +96,7 @@ const getManyCategory = (req, res) => __awaiter(void 0, void 0, void 0, function
 });
 exports.getManyCategory = getManyCategory;
 const getOneCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { categoryId } = req.query;
+    const { categoryId } = req.params;
     const findCategory = yield index_schema_1.Category.findOne({ _id: categoryId }).populate("parentId");
     if (!findCategory) {
         throw new error_1.NotFoundError("Category not found");
@@ -105,8 +105,8 @@ const getOneCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getOneCategory = getOneCategory;
 const getCategoryByType = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { type } = req.query;
-    const findCategory = yield index_schema_1.Category.findOne({ type: type }).populate("parentId");
+    const { type } = req.params;
+    const findCategory = yield index_schema_1.Category.find({ type: type }).populate("parentId");
     if (!findCategory) {
         throw new error_1.NotFoundError("Category not found");
     }
@@ -114,7 +114,7 @@ const getCategoryByType = (req, res) => __awaiter(void 0, void 0, void 0, functi
 });
 exports.getCategoryByType = getCategoryByType;
 const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { categoryId } = req.query;
+    const { categoryId } = req.params;
     const findCategory = yield index_schema_1.Category.findOne({ _id: categoryId });
     if (!findCategory) {
         throw new error_1.NotFoundError("Category not found");

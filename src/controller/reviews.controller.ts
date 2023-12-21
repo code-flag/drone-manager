@@ -128,7 +128,7 @@ export const getManyReview = async (req: any, res: any) => {
   
 
   export const getOneReview = async (req: any, res: any) => {
-    const { reviewId } = req.query;
+    const { reviewId } = req.params;
     const findReview: any = await Review.findOne({ _id: reviewId }).populate(['userId', 'projectId']);
     if (!findReview) {
       throw new NotFoundError("Review not found");
@@ -138,7 +138,7 @@ export const getManyReview = async (req: any, res: any) => {
   };
 
   export const getProductReview = async (req: any, res: any) => {
-    const { productId } = req.query;
+    const { productId } = req.params;
     const findReview: any = await Review.findOne({ productId: productId }).populate(['userId', 'projectId']);
     if (!findReview) {
       throw new NotFoundError("Review not found");
@@ -148,7 +148,7 @@ export const getManyReview = async (req: any, res: any) => {
   };
   
   export const deleteReview = async (req: any, res: any) => {
-    const { reviewId } = req.query;
+    const { reviewId } = req.params;
     const findReview: any = await Review.findOne({ _id: reviewId });
     if (!findReview) {
       throw new NotFoundError("Review not found");

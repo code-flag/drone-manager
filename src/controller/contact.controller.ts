@@ -135,7 +135,7 @@ export const getManyContact = async (req: any, res: any) => {
   
 
   export const getOneContact = async (req: any, res: any) => {
-    const { contactId } = req.query;
+    const { contactId } = req.params;
     const findContact: any = await Contact.findOne({ _id: contactId });
     if (!findContact) {
       throw new NotFoundError("Contact not found");
@@ -145,7 +145,7 @@ export const getManyContact = async (req: any, res: any) => {
   };
   
   export const deleteContact = async (req: any, res: any) => {
-    const { contactId } = req.query;
+    const { contactId } = req.params;
     const findContact: any = await Contact.findOne({ _id: contactId });
     if (!findContact) {
       throw new NotFoundError("Contact not found");

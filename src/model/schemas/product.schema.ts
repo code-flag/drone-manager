@@ -13,12 +13,6 @@ baseImage: {type: String},
 imageVariation: [{type: String}],
 categoryId:{
   type: Schema.Types.ObjectId,
-  required: true,
-  ref: "Category",
-},
-subCategoryId:{
-  type: Schema.Types.ObjectId,
-  required: true,
   ref: "Category",
 },
 sku: {type: String},

@@ -63,7 +63,7 @@ export const getManyShipping = async (req: any, res: any) => {
   
 
   export const getOneShipping = async (req: any, res: any) => {
-    const { shippingId } = req.query;
+    const { shippingId } = req.params;
     const findShipping: any = await Shipping.findOne({ _id: shippingId }).populate(["userId","shippingId"]);
     if (!findShipping) {
       throw new NotFoundError("Shipping not found");
@@ -73,7 +73,7 @@ export const getManyShipping = async (req: any, res: any) => {
   };
   
   export const deleteShipping = async (req: any, res: any) => {
-    const { shippingId } = req.query;
+    const { shippingId } = req.params;
     const findShipping: any = await Shipping.findOne({ _id: shippingId });
     if (!findShipping) {
       throw new NotFoundError("Shipping not found");

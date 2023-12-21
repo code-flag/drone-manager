@@ -68,7 +68,7 @@ export const getUserCartPaginated = async (req: any, res: any) => {
   
 
   export const getOneCart = async (req: any, res: any) => {
-    const { userId } = req.query;
+    const { userId } = req.params;
     const findCart: any = await Cart.findOne({ userId: userId }).populate(["userId","productId"]);
     if (!findCart) {
       throw new NotFoundError("Cart product not found");
@@ -78,7 +78,7 @@ export const getUserCartPaginated = async (req: any, res: any) => {
   };
   
   export const deleteCart = async (req: any, res: any) => {
-    const { cartId } = req.query;
+    const { cartId } = req.params;
     const findCart: any = await Cart.findOne({ _id: cartId });
     if (!findCart) {
       throw new NotFoundError("Cart product not found");

@@ -41,7 +41,7 @@ const getManySession = (req, res) => __awaiter(void 0, void 0, void 0, function*
 });
 exports.getManySession = getManySession;
 const getOneSession = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { sessionId } = req.query;
+    const { sessionId } = req.params;
     const findSession = yield index_schema_1.Session.findOne({ _id: sessionId }).populate(["sessionId", "productId"]);
     if (!findSession) {
         throw new error_1.NotFoundError("User session added not found");
@@ -50,7 +50,7 @@ const getOneSession = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getOneSession = getOneSession;
 const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { sessionId } = req.query;
+    const { sessionId } = req.params;
     const findSession = yield index_schema_1.Session.findOne({ _id: sessionId });
     if (!findSession) {
         throw new error_1.NotFoundError("User session added not found");

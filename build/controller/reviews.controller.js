@@ -111,7 +111,7 @@ const getManyReview = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 });
 exports.getManyReview = getManyReview;
 const getOneReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { reviewId } = req.query;
+    const { reviewId } = req.params;
     const findReview = yield index_schema_1.Review.findOne({ _id: reviewId }).populate(['userId', 'projectId']);
     if (!findReview) {
         throw new error_1.NotFoundError("Review not found");
@@ -120,7 +120,7 @@ const getOneReview = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 });
 exports.getOneReview = getOneReview;
 const getProductReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { productId } = req.query;
+    const { productId } = req.params;
     const findReview = yield index_schema_1.Review.findOne({ productId: productId }).populate(['userId', 'projectId']);
     if (!findReview) {
         throw new error_1.NotFoundError("Review not found");
@@ -129,7 +129,7 @@ const getProductReview = (req, res) => __awaiter(void 0, void 0, void 0, functio
 });
 exports.getProductReview = getProductReview;
 const deleteReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { reviewId } = req.query;
+    const { reviewId } = req.params;
     const findReview = yield index_schema_1.Review.findOne({ _id: reviewId });
     if (!findReview) {
         throw new error_1.NotFoundError("Review not found");

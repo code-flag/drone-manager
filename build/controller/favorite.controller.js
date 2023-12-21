@@ -64,7 +64,7 @@ const getUserFavoriteProductsPaginated = (req, res) => __awaiter(void 0, void 0,
 });
 exports.getUserFavoriteProductsPaginated = getUserFavoriteProductsPaginated;
 const getUserFavoriteProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.query;
+    const { userId } = req.params;
     const findFav = yield index_schema_1.Favorite.findOne({ userId: userId }).populate(["userId", "productId"]);
     if (!findFav) {
         throw new error_1.NotFoundError("Favorite product not found");
@@ -73,7 +73,7 @@ const getUserFavoriteProduct = (req, res) => __awaiter(void 0, void 0, void 0, f
 });
 exports.getUserFavoriteProduct = getUserFavoriteProduct;
 const deleteFavorite = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { favoriteId } = req.query;
+    const { favoriteId } = req.params;
     const findFav = yield index_schema_1.Favorite.findOne({ _id: favoriteId });
     if (!findFav) {
         throw new error_1.NotFoundError("Favorite product not found");

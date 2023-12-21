@@ -216,7 +216,7 @@ const verifyOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.verifyOTP = verifyOTP;
 const verifyRegConfirmationOTP = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _b;
-    const { otp, userId } = req.query;
+    const { otp, userId } = req.params;
     const doc = yield index_schema_1.User.findOne({ _id: userId }, "+otp +otpTime");
     if (!doc) {
         throw new error_1.NotFoundError("User does not exist");

@@ -64,7 +64,7 @@ const getUserCartPaginated = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getUserCartPaginated = getUserCartPaginated;
 const getOneCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.query;
+    const { userId } = req.params;
     const findCart = yield index_schema_1.Cart.findOne({ userId: userId }).populate(["userId", "productId"]);
     if (!findCart) {
         throw new error_1.NotFoundError("Cart product not found");
@@ -73,7 +73,7 @@ const getOneCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
 });
 exports.getOneCart = getOneCart;
 const deleteCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { cartId } = req.query;
+    const { cartId } = req.params;
     const findCart = yield index_schema_1.Cart.findOne({ _id: cartId });
     if (!findCart) {
         throw new error_1.NotFoundError("Cart product not found");
