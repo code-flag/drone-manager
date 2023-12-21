@@ -5,7 +5,7 @@ import { Cart } from "../model/index.schema";
 export const addCart = async (req: any, res: any) => {
     const data: ICart = req.body;
 
-    const cart: any = await Cart.findOne({ name: data.productId});
+    const cart: any = await Cart.findOne({ productId: data.productId, userId: data.userId});
     if (cart) {
       throw new ConflictError("Product already added");
     }
@@ -43,7 +43,7 @@ export const getUserCartPaginated = async (req: any, res: any) => {
     Cart.paginate(
       matchQuery,
       {
-        populate: ["userId", "productId"],
+        populate: [ "productId"],
         limit: limit,
         offset: offset,
         sort: {
@@ -68,8 +68,8 @@ export const getUserCartPaginated = async (req: any, res: any) => {
   
 
   export const getOneCart = async (req: any, res: any) => {
-    const { userId } = req.params;
-    const findCart: any = await Cart.findOne({ userId: userId }).populate(["userId","productId"]);
+    const { cartId } = req.params;
+    const findCart: any = await Cart.find({ _id: cartId }).populate(["productId"]);
     if (!findCart) {
       throw new NotFoundError("Cart product not found");
     }

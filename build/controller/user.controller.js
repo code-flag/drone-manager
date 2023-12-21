@@ -54,9 +54,7 @@ const getAllUser = (request, response) => __awaiter(void 0, void 0, void 0, func
     const { limit = 10, offset = 0, 
     //   isActive = true,
     isDeleted = false, isActive, search, email, fromDate, toDate, } = request.query;
-    const matchQuery = {
-        isDeleted: isDeleted,
-    };
+    const matchQuery = {};
     if (email) {
         matchQuery["email"] = email;
     }
@@ -85,8 +83,7 @@ const getAllUser = (request, response) => __awaiter(void 0, void 0, void 0, func
             _id: 1
         },
     }).then((user) => {
-        return;
-        (0, message_handler_1.returnMsg)(response, {
+        return (0, message_handler_1.returnMsg)(response, {
             result: user.docs,
             totalCount: user.totalDocs,
         }, "Fetch all user data completed");

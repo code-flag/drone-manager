@@ -15,7 +15,7 @@ const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
 const addCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
-    const cart = yield index_schema_1.Cart.findOne({ name: data.productId });
+    const cart = yield index_schema_1.Cart.findOne({ productId: data.productId, userId: data.userId });
     if (cart) {
         throw new error_1.ConflictError("Product already added");
     }
@@ -46,7 +46,7 @@ const getUserCartPaginated = (req, res) => __awaiter(void 0, void 0, void 0, fun
         }
     });
     index_schema_1.Cart.paginate(matchQuery, {
-        populate: ["userId", "productId"],
+        populate: ["productId"],
         limit: limit,
         offset: offset,
         sort: {
@@ -64,8 +64,8 @@ const getUserCartPaginated = (req, res) => __awaiter(void 0, void 0, void 0, fun
 });
 exports.getUserCartPaginated = getUserCartPaginated;
 const getOneCart = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const { userId } = req.params;
-    const findCart = yield index_schema_1.Cart.findOne({ userId: userId }).populate(["userId", "productId"]);
+    const { cartId } = req.params;
+    const findCart = yield index_schema_1.Cart.find({ _id: cartId }).populate(["productId"]);
     if (!findCart) {
         throw new error_1.NotFoundError("Cart product not found");
     }

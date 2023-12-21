@@ -69,8 +69,8 @@ export const getUserFavoriteProductsPaginated = async (req: any, res: any) => {
   
 
   export const getUserFavoriteProduct = async (req: any, res: any) => {
-    const { userId } = req.params;
-    const findFav: any = await Favorite.findOne({ userId: userId }).populate(["userId","productId"]);
+    const { favoriteId } = req.params;
+    const findFav: any = await Favorite.find({ userId: favoriteId }).populate(["productId"]);
     if (!findFav) {
       throw new NotFoundError("Favorite product not found");
     }

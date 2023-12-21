@@ -5,7 +5,7 @@ import { Order } from "../model/index.schema";
 export const addOrder = async (req: any, res: any) => {
     const data: IOrder = req.body;
 
-    const order: any = await Order.findOne({ productId: data.productId });
+    const order: any = await Order.findOne({productId: data.productId, userId: data.userId});
     if (order) {
       throw new ConflictError("Product order already exists");
     }

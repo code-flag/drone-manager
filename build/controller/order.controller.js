@@ -15,7 +15,7 @@ const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
 const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
-    const order = yield index_schema_1.Order.findOne({ productId: data.productId });
+    const order = yield index_schema_1.Order.findOne({ productId: data.productId, userId: data.userId });
     if (order) {
         throw new error_1.ConflictError("Product order already exists");
     }

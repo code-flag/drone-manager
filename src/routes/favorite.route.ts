@@ -14,7 +14,7 @@ router.post(
 );
 
 router.get(
-    "/user/:userId",
+    "/user/:favoriteId",
     //  verifyAccessKey,
     //  verifyToken,
     asyncWrapper(getUserFavoriteProduct)

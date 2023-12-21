@@ -11,7 +11,7 @@ router.post("/create",
 // verifyAccessKey,
 // verifyToken,
 (0, asyncWrapper_1.default)(favorite_controller_1.addFavorite));
-router.get("/user/:userId", 
+router.get("/user/:favoriteId", 
 //  verifyAccessKey,
 //  verifyToken,
 (0, asyncWrapper_1.default)(favorite_controller_1.getUserFavoriteProduct));

@@ -66,9 +66,7 @@ export const getAllUser = async (request: any, response: any) => {
     toDate,
   } = request.query;
 
-  const matchQuery: any = {
-    isDeleted: isDeleted,
-  };
+  const matchQuery: any = { };
 
   if (email) {
     matchQuery["email"] = email;
@@ -102,8 +100,7 @@ export const getAllUser = async (request: any, response: any) => {
       _id: 1
     },
   }).then((user: any) => {
-    return 
-      returnMsg(response,
+    return  returnMsg(response,
         {
           result: user.docs,
           totalCount: user.totalDocs,
