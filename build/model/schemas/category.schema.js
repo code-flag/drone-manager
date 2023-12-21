@@ -11,7 +11,6 @@ const categorySchema = new Schema({
     parentId: { type: String },
     parentName: { type: String },
     desc: { type: String },
-    image: { type: String },
     type: { type: String, enum: ["main", "sub"], default: "main", required: true }, // main or sub 
 }, {
     timestamps: true,

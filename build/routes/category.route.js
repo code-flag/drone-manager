@@ -10,6 +10,7 @@ const router = (0, express_1.Router)();
 router.post("/create", (0, asyncWrapper_1.default)(category_controller_1.addCategory));
 router.put("/update/:categoryId", (0, asyncWrapper_1.default)(category_controller_1.updateCategory));
 router.get("/all", (0, asyncWrapper_1.default)(category_controller_1.getManyCategory));
+router.get("/type/:type", (0, asyncWrapper_1.default)(category_controller_1.getCategoryByType));
 router.get("/:categoryId", (0, asyncWrapper_1.default)(category_controller_1.getOneCategory));
 router.delete("/delete/:categoryId", (0, asyncWrapper_1.default)(category_controller_1.deleteCategory));
 exports.default = router;

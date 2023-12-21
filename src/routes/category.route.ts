@@ -2,7 +2,7 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import { addCategory, deleteCategory, getManyCategory, getOneCategory, updateCategory } from "../controller/category.controller";
+import { addCategory, deleteCategory, getCategoryByType, getManyCategory, getOneCategory, updateCategory } from "../controller/category.controller";
 
 const router: any = Router();
 
@@ -20,7 +20,10 @@ router.get(
     "/all",
     asyncWrapper(getManyCategory)
   );
-
+  router.get(
+    "/type/:type",
+    asyncWrapper(getCategoryByType)
+  );
   router.get(
     "/:categoryId",
     asyncWrapper(getOneCategory)

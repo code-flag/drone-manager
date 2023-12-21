@@ -9,7 +9,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteCategory = exports.getOneCategory = exports.getManyCategory = exports.updateCategory = exports.addCategory = void 0;
+exports.deleteCategory = exports.getCategoryByType = exports.getOneCategory = exports.getManyCategory = exports.updateCategory = exports.addCategory = void 0;
 const error_1 = require("../helper/error");
 const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
@@ -104,6 +104,15 @@ const getOneCategory = (req, res) => __awaiter(void 0, void 0, void 0, function*
     (0, message_handler_1.returnMsg)(res, findCategory, "Category retrieved successfully");
 });
 exports.getOneCategory = getOneCategory;
+const getCategoryByType = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const { type } = req.query;
+    const findCategory = yield index_schema_1.Category.findOne({ type: type }).populate("parentId");
+    if (!findCategory) {
+        throw new error_1.NotFoundError("Category not found");
+    }
+    (0, message_handler_1.returnMsg)(res, findCategory, "Category retrieved successfully");
+});
+exports.getCategoryByType = getCategoryByType;
 const deleteCategory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { categoryId } = req.query;
     const findCategory = yield index_schema_1.Category.findOne({ _id: categoryId });
