@@ -31,7 +31,7 @@ router.post(
   asyncWrapper(createUser)
 );
 
-router.get("/all", verifyAccessKey, verifyToken, asyncWrapper(getAllUser));
+router.get("/all", asyncWrapper(getAllUser));
 
 router.get(
   "/email/:email",
@@ -45,7 +45,7 @@ router.get(
   "/:userId",
   // verifyAccessKey,
   // verifyToken,
-  typePermit("user", "staff", "organization", "admin"),
+  // typePermit("user", "staff", "organization", "admin"),
   // validator(validateId),
   asyncWrapper(getOneUser)
 );

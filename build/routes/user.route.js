@@ -12,7 +12,7 @@ router.post("/register",
 // verifyAccessKey,
 // validator(validateCreateUser),
 (0, asyncWrapper_1.default)(user_controller_1.createUser));
-router.get("/all", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.getAllUser));
+router.get("/all", (0, asyncWrapper_1.default)(user_controller_1.getAllUser));
 router.get("/email/:email", 
 // verifyAccessKey,
 // verifyToken,
@@ -21,7 +21,7 @@ router.get("/email/:email",
 router.get("/:userId", 
 // verifyAccessKey,
 // verifyToken,
-(0, auth_1.typePermit)("user", "staff", "organization", "admin"), 
+// typePermit("user", "staff", "organization", "admin"),
 // validator(validateId),
 (0, asyncWrapper_1.default)(user_controller_1.getOneUser));
 router.get("/count", 
@@ -30,7 +30,9 @@ router.get("/count",
 // typePermit("staff", "organization", "admin"),
 (0, asyncWrapper_1.default)(user_controller_1.getAllUserCount));
 router.post("/resend-otp/:userId", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.resendOtp));
-router.post("/confirmation/otp", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.verifyRegConfirmationOTP));
+router.post("/confirmation/otp", 
+// verifyAccessKey,
+(0, asyncWrapper_1.default)(user_controller_1.verifyRegConfirmationOTP));
 router.post("/verify-otp", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.verifyOTP));
 router.post("/generate-otp/:email", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.generateOtp));
 router.put("/update/:userId", 
