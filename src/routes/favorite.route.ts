@@ -8,28 +8,28 @@ const router: any = Router();
 
 router.post(
   "/create",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   asyncWrapper(addFavorite)
 );
 
 router.get(
     "/user/:userId",
-     verifyAccessKey,
-     verifyToken,
+    //  verifyAccessKey,
+    //  verifyToken,
     asyncWrapper(getUserFavoriteProduct)
   );
 
   router.get(
     "/user", 
-    verifyAccessKey,
-    verifyToken,
+    // verifyAccessKey,
+    // verifyToken,
     asyncWrapper(getUserFavoriteProductsPaginated)
   );
   
 router.delete("/delete/:favoriteId", 
-verifyAccessKey,
-verifyToken,
+// verifyAccessKey,
+// verifyToken,
 asyncWrapper(deleteFavorite)
 );
 

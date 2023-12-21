@@ -7,15 +7,15 @@ const router: any = Router();
 
 router.post(
   "/create",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   asyncWrapper(addOrder)
 );
 
 router.put(
   "/update/:orderId",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   asyncWrapper(updateOrder)
 );
 
@@ -23,21 +23,21 @@ router.put(
 
 router.get(
     "/all",
-    verifyAccessKey,
-    verifyToken,
+    // verifyAccessKey,
+    // verifyToken,
     asyncWrapper(getManyOrder)
   );
 
   router.get(
     "/:orderId",
-    verifyAccessKey,
-    verifyToken,
+    // verifyAccessKey,
+    // verifyToken,
     asyncWrapper(getOneOrder)
   );
   
 router.delete("/delete/:orderId",
-verifyAccessKey,
-verifyToken,
+// verifyAccessKey,
+// verifyToken,
  asyncWrapper(deleteOrder)
  );
 
