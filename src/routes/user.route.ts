@@ -31,10 +31,10 @@ router.post(
   asyncWrapper(createUser)
 );
 
-router.get("/all-user", verifyAccessKey, verifyToken, asyncWrapper(getAllUser));
+router.get("/all", verifyAccessKey, verifyToken, asyncWrapper(getAllUser));
 
 router.get(
-  "/by-email/:email",
+  "/email/:email",
   verifyAccessKey,
   verifyToken,
   validator(validateEmail),
@@ -71,7 +71,7 @@ router.post("/verify-otp", verifyAccessKey, asyncWrapper(verifyOTP));
 router.post("/generate-otp/:email", verifyAccessKey, asyncWrapper(generateOtp));
 
 router.put(
-  "/update-info/:userId",
+  "/update/:userId",
   verifyAccessKey,
   verifyToken,
   asyncWrapper(updateUserInfo)

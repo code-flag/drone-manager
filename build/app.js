@@ -50,8 +50,8 @@ app.use((0, cors_1.default)({
 // Body Parser middleware
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: false }));
-// app.set('trust proxy', '127.0.0.1');
-app.set('trust proxy', true);
+app.set('trust proxy', '127.0.0.1');
+// app.set('trust proxy', true);
 // this is added to be able to use import.meta.value for email attachment
 /** ============================= Helmet for securing api request headers =================== */
 app.use((0, helmet_1.default)());

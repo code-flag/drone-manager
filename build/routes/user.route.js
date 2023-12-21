@@ -14,8 +14,8 @@ router.post("/register",
 // verifyAccessKey,
 // validator(validateCreateUser),
 (0, asyncWrapper_1.default)(user_controller_1.createUser));
-router.get("/all-user", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.getAllUser));
-router.get("/by-email/:email", auth_1.verifyAccessKey, auth_1.verifyToken, (0, validator_1.default)(user_1.validateEmail), (0, asyncWrapper_1.default)(user_controller_1.getUserByEmail));
+router.get("/all", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.getAllUser));
+router.get("/email/:email", auth_1.verifyAccessKey, auth_1.verifyToken, (0, validator_1.default)(user_1.validateEmail), (0, asyncWrapper_1.default)(user_controller_1.getUserByEmail));
 router.get("/:userId", auth_1.verifyAccessKey, auth_1.verifyToken, (0, auth_1.typePermit)("user", "staff", "organization", "admin"), 
 // validator(validateId),
 (0, asyncWrapper_1.default)(user_controller_1.getOneUser));
@@ -26,6 +26,6 @@ router.post("/resend-otp/:userId", auth_1.verifyAccessKey, (0, asyncWrapper_1.de
 router.post("/confirmation/otp", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.verifyRegConfirmationOTP));
 router.post("/verify-otp", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.verifyOTP));
 router.post("/generate-otp/:email", auth_1.verifyAccessKey, (0, asyncWrapper_1.default)(user_controller_1.generateOtp));
-router.put("/update-info/:userId", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.updateUserInfo));
+router.put("/update/:userId", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.updateUserInfo));
 router.delete("/delete/:userId", auth_1.verifyAccessKey, auth_1.verifyToken, (0, asyncWrapper_1.default)(user_controller_1.deleteUser));
 exports.default = router;

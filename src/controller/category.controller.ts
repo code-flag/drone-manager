@@ -114,6 +114,16 @@ export const getManyCategory = async (req: any, res: any) => {
   
     returnMsg(res, findCategory, "Category retrieved successfully");
   };
+
+  export const getCategoryByType = async (req: any, res: any) => {
+    const { type } = req.query;
+    const findCategory: any = await Category.findOne({ type: type }).populate("parentId");
+    if (!findCategory) {
+      throw new NotFoundError("Category not found");
+    }
+  
+    returnMsg(res, findCategory, "Category retrieved successfully");
+  };
   
   export const deleteCategory = async (req: any, res: any) => {
     const { categoryId } = req.query;

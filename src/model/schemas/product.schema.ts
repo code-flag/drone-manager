@@ -10,7 +10,7 @@ const productSchema = new Schema<IProduct>({
 name: {type: String},
 desc: {type: String},
 baseImage: {type: String},
-imageVariation: {type: String},
+imageVariation: [{type: String}],
 categoryId:{
   type: Schema.Types.ObjectId,
   required: true,

@@ -37,8 +37,9 @@ interface IFavorite {
 interface ICategory {
     name: string,
     desc: string,
-    imageUrl: string,
-    type: string
+    type: string,
+    parentId?: string,
+    parentName?: string
 }
 
 interface IOrder {
