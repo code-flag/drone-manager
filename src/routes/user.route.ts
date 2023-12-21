@@ -35,16 +35,16 @@ router.get("/all", verifyAccessKey, verifyToken, asyncWrapper(getAllUser));
 
 router.get(
   "/email/:email",
-  verifyAccessKey,
-  verifyToken,
-  validator(validateEmail),
+  // verifyAccessKey,
+  // verifyToken,
+  // validator(validateEmail),
   asyncWrapper(getUserByEmail)
 );
 
 router.get(
   "/:userId",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   typePermit("user", "staff", "organization", "admin"),
   // validator(validateId),
   asyncWrapper(getOneUser)
@@ -52,8 +52,8 @@ router.get(
 
 router.get(
   "/count",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   // typePermit("staff", "organization", "admin"),
   asyncWrapper(getAllUserCount)
 );
@@ -72,15 +72,15 @@ router.post("/generate-otp/:email", verifyAccessKey, asyncWrapper(generateOtp));
 
 router.put(
   "/update/:userId",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   asyncWrapper(updateUserInfo)
 );
 
 router.delete(
   "/delete/:userId",
-  verifyAccessKey,
-  verifyToken,
+  // verifyAccessKey,
+  // verifyToken,
   asyncWrapper(deleteUser)
 );
 
