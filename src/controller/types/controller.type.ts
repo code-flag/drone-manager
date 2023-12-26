@@ -44,8 +44,12 @@ interface ICategory {
 
 interface IOrder {
     userId: string,
-    shippingId: string
-    productId: string
+    productId: string,
+    quantity: number,
+    price: number, // price per one
+    isTracking?: boolean,
+    trackingId?: string,
+    paymentId?: string
 }
 
 interface IShipping {

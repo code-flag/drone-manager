@@ -15,6 +15,10 @@ const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
 const addOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    const product = yield index_schema_1.Product.findOne({ productId: data.productId });
+    if (!product) {
+        throw new error_1.ConflictError("Product does not exists");
+    }
     const order = yield index_schema_1.Order.findOne({ productId: data.productId, userId: data.userId });
     if (order) {
         throw new error_1.ConflictError("Product order already exists");
@@ -78,7 +82,7 @@ const getManyOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         }
     });
     index_schema_1.Order.paginate(matchQuery, {
-        populate: [{ path: 'userId' }, { path: "productId" }],
+        populate: [{ path: 'paymentId' }, { path: "productId" }],
         limit: limit,
         offset: offset,
         sort: {
@@ -97,7 +101,8 @@ const getManyOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* (
 exports.getManyOrder = getManyOrder;
 const getOneOrder = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { orderId } = req.params;
-    const findOrder = yield index_schema_1.Order.findOne({ _id: orderId });
+    const findOrder = yield index_schema_1.Order.findOne({ _id: orderId }).populate([{ path: 'paymentId' }, { path: "productId" }]);
+    ;
     if (!findOrder) {
         throw new error_1.NotFoundError("Product order not found");
     }

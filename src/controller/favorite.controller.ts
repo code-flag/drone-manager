@@ -1,10 +1,15 @@
 import { Request, Response } from "express";
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
-import { Favorite } from "../model/index.schema";
+import { Favorite, Product } from "../model/index.schema";
 
 export const addFavorite = async (req: any, res: any) => {
     const data: IFavorite = req.body;
+
+    const product: any = await Product.findOne({productId: data.productId});
+    if (!product) {
+      throw new ConflictError("Product does not exists");
+    }
 
     const favorite: any = await Favorite.findOne({ productId: data.productId, userId: data.userId});
     if (favorite) {

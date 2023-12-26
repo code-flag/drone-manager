@@ -15,8 +15,8 @@ const message_handler_1 = require("../helper/message-handler");
 const index_schema_1 = require("../model/index.schema");
 const addReview = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
-    const product = yield index_schema_1.Product.findOne({ productId: data.productId, userId: data.userId });
-    if (product) {
+    const product = yield index_schema_1.Product.findOne({ productId: data.productId });
+    if (!product) {
         throw new error_1.ConflictError("Product does not exists");
     }
     const review = yield index_schema_1.Review.findOne({ productId: data.productId, userId: data.userId });

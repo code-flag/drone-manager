@@ -5,8 +5,8 @@ import { Product, Review } from "../model/index.schema";
 export const addReview = async (req: any, res: any) => {
     const data: IReviews = req.body;
 
-    const product: any = await Product.findOne({productId: data.productId, userId: data.userId});
-    if (product) {
+    const product: any = await Product.findOne({productId: data.productId});
+    if (!product) {
       throw new ConflictError("Product does not exists");
     }
 

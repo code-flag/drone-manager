@@ -19,7 +19,7 @@ productId: {
   ref: "Product",
 },
 rating: {type: Number, required: true},
-comment: {type: String, required: true},
+comment: {type: String},
 },
 {
   timestamps: true,

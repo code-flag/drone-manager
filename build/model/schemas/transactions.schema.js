@@ -19,10 +19,10 @@ const UpdatedBy = new Schema({
     desc: { type: String }
 });
 const TransactionsSchema = new Schema({
-    orderId: {
-        type: Schema.Types.ObjectId,
-        ref: "Order",
-    },
+    itemId: [{
+            type: Schema.Types.ObjectId,
+            ref: "Product",
+        }],
     userId: {
         type: Schema.Types.ObjectId,
         ref: "User",

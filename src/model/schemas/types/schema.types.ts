@@ -42,6 +42,9 @@ export interface IUser {
   lastName: string;
   userName: string;
   countryCode: string;
+  country:string;
+  state:string;
+  address:string;
   phone: string;
   avatar: string;
   gender?: string;
@@ -76,7 +79,7 @@ export interface IContact {
 }
 
 export interface ITransaction {
-  orderId: Types.ObjectId;
+  itemId: Types.ObjectId[];
   fullName: string;
   regNo?: string;
   userId?: string;
@@ -93,31 +96,3 @@ export interface ICategory {
   charges: string;
 }
 
-export interface IAggregator {
-  firstName: string;
-  lastName: string;
-  userName: string;
-  countryCode: string;
-  phone: string;
-  avatar: string;
-  gender?: string;
-  address?: string;
-  email: string;
-  referralId?: string;
-  organization?: [Types.ObjectId];
-  multiFactorAuth?: boolean;
-  secretBase: string;
-  otpAuthUrl: string;
-  role?: string;
-  businesses?: [Types.ObjectId];
-  password: string;
-  otp: string;
-  confirmationToken: string;
-  otpTime: Date;
-  oneTimePassword: boolean;
-  firebaseNotificationToken?: string;
-  TCAgreement: boolean;
-  isDeleted: boolean;
-  isActive: boolean;
-  isApproved: boolean;
-}

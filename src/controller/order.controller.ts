@@ -1,9 +1,14 @@
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
-import { Order } from "../model/index.schema";
+import { Order, Product } from "../model/index.schema";
 
 export const addOrder = async (req: any, res: any) => {
     const data: IOrder = req.body;
+
+    const product: any = await Product.findOne({productId: data.productId});
+    if (!product) {
+      throw new ConflictError("Product does not exists");
+    }
 
     const order: any = await Order.findOne({productId: data.productId, userId: data.userId});
     if (order) {
@@ -81,7 +86,7 @@ export const getManyOrder = async (req: any, res: any) => {
     Order.paginate(
       matchQuery,
       {
-        populate: [{path: 'userId'}, {path: "productId"}],
+        populate: [{path: 'paymentId'}, {path: "productId"}],
         limit: limit,
         offset: offset,
         sort: {
@@ -107,7 +112,7 @@ export const getManyOrder = async (req: any, res: any) => {
 
   export const getOneOrder = async (req: any, res: any) => {
     const { orderId } = req.params;
-    const findOrder: any = await Order.findOne({ _id: orderId });
+    const findOrder: any = await Order.findOne({ _id: orderId }).populate( [{path: 'paymentId'}, {path: "productId"}]);;
     if (!findOrder) {
       throw new NotFoundError("Product order not found");
     }

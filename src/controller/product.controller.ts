@@ -10,6 +10,15 @@ export const addProduct = async (req: any, res: any) => {
     throw new ConflictError("Product already exists");
   }
 
+    if (product["tags"] && Array.isArray(product["tags"])) {
+      let tags: string[] = [];
+      product["tags"].forEach((tag: string) => {
+        tags.push(tag.trim());
+      })
+      product["tags"] = tags;
+    }
+  
+
   const saveProduct: any = await Product.create(product);
   if (!saveProduct) {
     throw new BadRequestError("Something went wrong, could not save product");
@@ -97,7 +106,9 @@ export const getManyProduct = async (req: any, res: any) => {
     }
     
     else if (element === "tags") {
+
       matchQuery["tags"] = {$all : [req.query[element] ]};
+      // matchQuery["tags"] = req.query[element];
     }
     
     else if (element === "search") {
@@ -115,6 +126,8 @@ export const getManyProduct = async (req: any, res: any) => {
     }
   });
 
+  console.log("match query", matchQuery);
+  
   Product.paginate(
     matchQuery,
     {

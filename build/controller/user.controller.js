@@ -47,6 +47,12 @@ const createUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     delete newUser.otp;
     delete newUser.otpTime;
     delete newUser.password;
+    try {
+        yield index_schema_1.Shipping.create({ userId: newUser._id, phone: userData.phone, address: userData.address, email: userData.email });
+    }
+    catch (error) {
+        console.log("could not save user contact to shipping database");
+    }
     (0, message_handler_1.returnMsg)(res, { newUser }, "user created successfully");
 });
 exports.createUser = createUser;

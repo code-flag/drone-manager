@@ -23,10 +23,10 @@ const {  Schema } = mongoose;
 
 const TransactionsSchema = new Schema<ITransaction>(
   {
-    orderId: {
+    itemId: [{
         type: Schema.Types.ObjectId,
-        ref: "Order",
-      },
+        ref: "Product",
+      }],
     userId: {
       type: Schema.Types.ObjectId,
       ref: "User",

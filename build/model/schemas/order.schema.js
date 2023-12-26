@@ -19,18 +19,21 @@ const OrderSchema = new Schema({
         required: true,
         ref: "User",
     },
-    shippingId: {
-        type: Schema.Types.ObjectId,
-        required: true,
-        ref: "Shipping",
+    // shippingId: {
+    //   type: Schema.Types.ObjectId,
+    //   ref: "Shipping",
+    // },
+    status: {
+        type: String,
+        enum: ["delivered", "processing", "pending", "in-progress", "shipping", "shipped"],
+        default: "pending"
     },
-    status: { type: String },
-    isTracking: { type: Boolean },
-    paymentChannel: { type: String },
-    paymentStatus: { type: String },
+    quantity: { type: Number, required: true },
+    price: { type: Number }, // price per one
+    isTracking: { type: Boolean, required: true, default: false },
+    trackingId: { type: String },
     paymentId: {
         type: Schema.Types.ObjectId,
-        required: true,
         ref: "Transactions",
     },
     isDeleted: {

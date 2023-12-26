@@ -19,6 +19,13 @@ const addProduct = (req, res) => __awaiter(void 0, void 0, void 0, function* () 
     if (findProductByName) {
         throw new error_1.ConflictError("Product already exists");
     }
+    if (product["tags"] && Array.isArray(product["tags"])) {
+        let tags = [];
+        product["tags"].forEach((tag) => {
+            tags.push(tag.trim());
+        });
+        product["tags"] = tags;
+    }
     const saveProduct = yield index_schema_1.Product.create(product);
     if (!saveProduct) {
         throw new error_1.BadRequestError("Something went wrong, could not save product");
@@ -91,6 +98,7 @@ const getManyProduct = (req, res) => __awaiter(void 0, void 0, void 0, function*
         }
         else if (element === "tags") {
             matchQuery["tags"] = { $all: [req.query[element]] };
+            // matchQuery["tags"] = req.query[element];
         }
         else if (element === "search") {
             matchQuery["$or"] = [
@@ -105,6 +113,7 @@ const getManyProduct = (req, res) => __awaiter(void 0, void 0, void 0, function*
             }
         }
     });
+    console.log("match query", matchQuery);
     index_schema_1.Product.paginate(matchQuery, {
         populate: [],
         limit: limit,

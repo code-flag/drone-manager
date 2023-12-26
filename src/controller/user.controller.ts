@@ -1,7 +1,7 @@
 import { sendMail } from "../helper/mailer";
 import { BadRequestError, ConflictError, NotFoundError } from "../helper/error";
 import { returnMsg } from "../helper/message-handler";
-import { User } from "../model/index.schema";
+import { Shipping, User } from "../model/index.schema";
 import { otpConfirmationMsg } from "../helper/messages/otp-confirmation-message";
 import { regConfirmationMsg } from "../helper/messages/reg-confirmation";
 import { generateOTP } from "../helper/generate-otp";
@@ -50,6 +50,13 @@ export const createUser = async (req: any, res: any) => {
   delete newUser.otpTime;
   delete newUser.password;
 
+  try {
+    await Shipping.create({userId: newUser._id, phone: userData.phone, address: userData.address, email: userData.email})
+
+  } catch (error) {
+    console.log("could not save user contact to shipping database");
+    
+  }
   returnMsg(res,{ newUser }, "user created successfully");
 };
 

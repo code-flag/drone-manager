@@ -51,6 +51,15 @@ const loginUser = (request, response) => __awaiter(void 0, void 0, void 0, funct
     if (!user.validatePassword(password, user.password)) {
         throw new error_1.BadRequestError("Email or password do not match.");
     }
+    let userProduct = {};
+    if (user && userType === "user") {
+        const favorites = yield index_schema_1.Favorite.find({ userId: user._id }).populate("productId");
+        const carts = yield index_schema_1.Cart.find({ userId: user._id }).populate("productId");
+        const orders = yield index_schema_1.Order.find({ userId: user._id, isActive: true });
+        userProduct["carts"] = carts !== null && carts !== void 0 ? carts : [];
+        userProduct["favorites"] = favorites !== null && favorites !== void 0 ? favorites : [];
+        userProduct["orders"] = orders !== null && orders !== void 0 ? orders : [];
+    }
     /**
      * _id and type does the same thing. _id is purposely used to confuse anyone that
      * may see the token data
@@ -68,7 +77,8 @@ const loginUser = (request, response) => __awaiter(void 0, void 0, void 0, funct
     delete user["otpAuthUrl"];
     delete user["secretBase"];
     delete user["password"];
-    user = token == null ? { user: user } : { user, token };
+    const useObject = Object.assign(Object.assign({}, user), userProduct);
+    user = token == null ? { user: useObject } : { user: useObject, token };
     return (0, message_handler_1.returnMsg)(response, user, "success");
 });
 exports.loginUser = loginUser;

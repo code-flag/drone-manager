@@ -8,7 +8,7 @@ import generateAuthToken from "../helper/jwtAuth";
 import { generateRandomPassword } from "../helper/random-password-generator";
 import { sendMail } from "../helper/mailer";
 import { returnMsg } from "../helper/message-handler";
-import {Staff, User } from "../model/index.schema";
+import {Cart, Favorite, Order, Staff, User } from "../model/index.schema";
 import CryptoJS from "crypto-js";
 import dotEnv from "dotenv";
 import { encryptPassword } from "../helper/hasher";
@@ -49,6 +49,16 @@ export const loginUser = async (request: any, response: any) => {
     throw new BadRequestError("Email or password do not match.");
   }
 
+  let userProduct: any = {};
+  if (user && userType === "user") {
+    const favorites = await Favorite.find({userId: user._id}).populate("productId");
+    const carts = await Cart.find({userId: user._id}).populate("productId");
+    const orders = await Order.find({userId: user._id, isActive: true});
+    userProduct["carts"] = carts ?? [];
+    userProduct["favorites"] = favorites ?? [];
+    userProduct["orders"] = orders ?? [];
+  }
+
   /**
    * _id and type does the same thing. _id is purposely used to confuse anyone that
    * may see the token data
@@ -68,8 +78,9 @@ export const loginUser = async (request: any, response: any) => {
   delete user["otpAuthUrl"];
   delete user["secretBase"];
   delete user["password"];
-
-  user = token == null ? { user: user } : { user, token };
+  
+ const useObject = {...user, ...userProduct};
+  user = token == null ? { user: useObject } : { user: useObject, token };
   return returnMsg(response, user, "success");
 };
 

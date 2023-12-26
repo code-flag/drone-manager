@@ -22,8 +22,8 @@ discountPrice: {type: Number},
 discountPercentage: {type: Number},
 tags: [{type: String}],
 salesRegion: {type: String},
-reviews: {type: Number, default: 0},
-ratings: {type: Number, default: 0},
+reviews: {type: Number, required: true, default: 0},
+ratings: {type: Number, required: true, default: 0},
 isArchived: { type: Boolean, default: false },
 }, {
   timestamps: true
