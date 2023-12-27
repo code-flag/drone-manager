@@ -2,33 +2,26 @@ import { Router } from "express";
 import { typePermit, verifyAccessKey, verifyToken } from "../middleware/auth";
 import asyncWrapper from "../middleware/asyncWrapper";
 
-import { addCategory, deleteCategory, getManyCategory, getOneCategory, updateCategory } from "../controller/category.controller";
+import { addTransaction, filterTransactions, updateTransactionStatus } from "../controller/transaction.controller";
 
 const router: any = Router();
 
 router.post(
   "/create",
-  asyncWrapper(addCategory)
+  asyncWrapper(addTransaction)
 );
 
 router.put(
-  "/update/:categoryId",
-  asyncWrapper(updateCategory)
+  "/update/:transactionId",
+  asyncWrapper(updateTransactionStatus)
 );
 
 
 
 router.get(
     "/all",
-    asyncWrapper(getManyCategory)
+    asyncWrapper(filterTransactions)
   );
-
-  router.get(
-    "/:categoryId",
-    asyncWrapper(getOneCategory)
-  );
-  
-router.delete("/delete/:categoryId", asyncWrapper(deleteCategory));
 
 export default router;
 
