@@ -116,13 +116,12 @@ export const filterTransactions = async (req: any, res: any) => {
     //   isActive = true,
     search,
     status,
-    userId,
-    orderId,
     transactionId,
     referenceId,
-    category,
+    userId,
     fromDate,
     toDate,
+    itemId,
   } = req.query;
 
   const matchQuery: any = {};
@@ -133,11 +132,8 @@ export const filterTransactions = async (req: any, res: any) => {
   if (userId) {
     matchQuery["userId"] = userId;
   }
-  if (orderId) {
-    matchQuery["orderId"] = orderId;
-  }
-  if (category) {
-    matchQuery["OrderCategory"] = category;
+  if (itemId) {
+    matchQuery["itemId"] = itemId;
   }
   if (transactionId) {
     matchQuery["_id"] = transactionId;
@@ -152,9 +148,7 @@ export const filterTransactions = async (req: any, res: any) => {
       { fullName: { $regex: search, $options: "i" } },
       { reference: { $regex: search, $options: "i" } },
       { naration: { $regex: search, $options: "i" } },
-      { OrganizationCategory: { $regex: search, $options: "i" } },
       { userId: { $regex: search, $options: "i" } },
-      { orderId: { $regex: search, $options: "i" } },
       { reference: { $regex: search, $options: "i" } },
     ];
   }
@@ -170,9 +164,7 @@ export const filterTransactions = async (req: any, res: any) => {
   Transactions.paginate(matchQuery, {
     populate: [
       {
-        path: "orderId",
-        select:
-          "name logo tradename legalName industry category organizationCode isApproved",
+        path: "userId"
       },
     ],
     limit: limit,

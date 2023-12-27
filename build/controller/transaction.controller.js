@@ -98,7 +98,7 @@ exports.addTransaction = addTransaction;
 const filterTransactions = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { limit = 10, offset = 0, 
     //   isActive = true,
-    search, status, userId, orderId, transactionId, referenceId, category, fromDate, toDate, } = req.query;
+    search, status, transactionId, referenceId, userId, fromDate, toDate, itemId, } = req.query;
     const matchQuery = {};
     if (status) {
         matchQuery["status"] = status;
@@ -106,11 +106,8 @@ const filterTransactions = (req, res) => __awaiter(void 0, void 0, void 0, funct
     if (userId) {
         matchQuery["userId"] = userId;
     }
-    if (orderId) {
-        matchQuery["orderId"] = orderId;
-    }
-    if (category) {
-        matchQuery["OrderCategory"] = category;
+    if (itemId) {
+        matchQuery["itemId"] = itemId;
     }
     if (transactionId) {
         matchQuery["_id"] = transactionId;
@@ -124,9 +121,7 @@ const filterTransactions = (req, res) => __awaiter(void 0, void 0, void 0, funct
             { fullName: { $regex: search, $options: "i" } },
             { reference: { $regex: search, $options: "i" } },
             { naration: { $regex: search, $options: "i" } },
-            { OrganizationCategory: { $regex: search, $options: "i" } },
             { userId: { $regex: search, $options: "i" } },
-            { orderId: { $regex: search, $options: "i" } },
             { reference: { $regex: search, $options: "i" } },
         ];
     }
@@ -140,8 +135,7 @@ const filterTransactions = (req, res) => __awaiter(void 0, void 0, void 0, funct
     index_schema_1.Transactions.paginate(matchQuery, {
         populate: [
             {
-                path: "orderId",
-                select: "name logo tradename legalName industry category organizationCode isApproved",
+                path: "userId"
             },
         ],
         limit: limit,
