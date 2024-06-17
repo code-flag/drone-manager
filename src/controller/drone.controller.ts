@@ -8,6 +8,12 @@ import { returnMsg } from '../helper/message-handler';
  * This class implement all the method to run drone service
  */
 class DroneController {
+  /**
+   * Register new drone
+   * - Post Method
+   * @param req 
+   * @param res 
+   */
   async registerDrone(req: Request, res: Response) {
     try {
       const drone = await droneService.registerDrone(req.body);
@@ -17,6 +23,12 @@ class DroneController {
     }
   }
 
+  /**
+   * Load available drone
+   * - Post Method
+   * @param req 
+   * @param res 
+   */
   async loadDrone(req: Request, res: Response) {
     try {
       const droneId = req.params.droneId;
@@ -27,6 +39,12 @@ class DroneController {
     }
   }
 
+  /**
+   * Get drone medications
+   * - Get Method
+   * @param req 
+   * @param res 
+   */
   async getDroneMedications(req: Request, res: Response) {
     try {
       const droneId = req.params.droneId;
@@ -37,6 +55,12 @@ class DroneController {
     }
   }
 
+  /**
+   * Get all the available drones
+   * - Get Method
+   * @param req 
+   * @param res 
+   */
   async getAvailableDrones(req: Request, res: Response) {
     try {
       const drones = await droneService.getAvailableDrones();
@@ -47,6 +71,12 @@ class DroneController {
     }
   }
 
+  /**
+   * Get drone battery level
+   * - Get method
+   * @param req 
+   * @param res 
+   */
   async getDroneBatteryLevel(req: Request, res: Response) {
     try {
       const droneId = req.params.droneId;

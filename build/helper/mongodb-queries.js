@@ -38,6 +38,7 @@ exports.updateNestedArrayOfDocument = updateNestedArrayOfDocument;
  * @param docFieldName - this is the document array field name
  * @param docMatchQuery - this is the match query for a specific obj or document inside the array
  * @example - {email: email} or {teamId: teamId}
+ * @returns {model} model
  */
 const updateDocumentOfArray = async (model, queryId, input, docFieldName, docMatchQuery) => {
     let queryData = {};
@@ -57,7 +58,7 @@ exports.updateDocumentOfArray = updateDocumentOfArray;
  * @param docFieldName - this is the document array field name
  * @param docMatchQuery - this is the match query for a specific obj or document inside the array
  * @example - {email: email} or {teamId: teamId}
- * @returns
+ * @returns {model} model
  */
 const deleteRecordFromArray = async (model, queryId, docFieldName, docMatchQuery) => {
     return await model.findOneAndUpdate({ "_id": queryId }, {

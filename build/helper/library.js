@@ -7,7 +7,7 @@ const unique_id_1 = require("./unique-id");
  * This method checks wether a key exist in an object or not
  * @param {*} obj
  * @param {*} key
- * @returns
+ * @returns {boolean} boolean
  */
 const isObjectKey = (obj, key) => {
     if (typeof obj == "object") {

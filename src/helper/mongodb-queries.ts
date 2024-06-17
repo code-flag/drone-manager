@@ -43,6 +43,7 @@ export const updateNestedArrayOfDocument = async (model: any, queryId: string, i
  * @param docFieldName - this is the document array field name
  * @param docMatchQuery - this is the match query for a specific obj or document inside the array
  * @example - {email: email} or {teamId: teamId}
+ * @returns {model} model
  */
 
 export const updateDocumentOfArray = async (model: any, queryId: string, input: any, docFieldName: string, docMatchQuery: any): Promise<any> => {
@@ -69,7 +70,7 @@ export const updateDocumentOfArray = async (model: any, queryId: string, input: 
  * @param docFieldName - this is the document array field name
  * @param docMatchQuery - this is the match query for a specific obj or document inside the array
  * @example - {email: email} or {teamId: teamId}
- * @returns 
+ * @returns {model} model
  */
 export const deleteRecordFromArray = async (model: any, queryId: string, docFieldName: string, docMatchQuery: any): Promise<any> => {
     return await model.findOneAndUpdate( {"_id": queryId},

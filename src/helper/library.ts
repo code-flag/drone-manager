@@ -5,9 +5,9 @@ import { getUniqueId } from "./unique-id";
  * This method checks wether a key exist in an object or not
  * @param {*} obj
  * @param {*} key
- * @returns
+ * @returns {boolean} boolean
  */
-export const isObjectKey = (obj: any, key: string) => {
+export const isObjectKey = (obj: any, key: string): boolean => {
   if (typeof obj == "object") {
     // check for payee key
     if (Object.keys(obj).includes(key)) {

@@ -9,7 +9,7 @@ class DroneService {
   /**
    * Drone registration method
    * @param {IDrone} droneData - drone date
-   * @returns 
+   * @returns {model} drone 
    */
   async registerDrone(droneData: IDrone) {
     const drone = new Drone(droneData);
@@ -20,7 +20,7 @@ class DroneService {
    * Load drone data
    * @param droneId 
    * @param medicationData 
-   * @returns 
+   * @returns {model} loaded drone 
    */
   async loadDrone(droneId: string, medicationData: IMedication) {
     const drone = await Drone.findById(droneId);
@@ -41,7 +41,7 @@ class DroneService {
   /**
    * Get drone medications
    * @param droneId 
-   * @returns 
+   * @returns {array} medications
    */
   async getDroneMedications(droneId: string) {
     const drone = await Drone.findById(droneId).populate('medications');
@@ -52,7 +52,7 @@ class DroneService {
 
   /**
    * Get all available drone
-   * @returns 
+   * @returns {array} all the idle drones
    */
   async getAvailableDrones() {
     return await Drone.find({ state: 'IDLE' });
@@ -61,7 +61,7 @@ class DroneService {
   /**
    * Get drone battery level
    * @param droneId 
-   * @returns 
+   * @returns {number} battery capacity
    */
   async getDroneBatteryLevel(droneId: string) {
     const drone = await Drone.findById(droneId);
