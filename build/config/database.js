@@ -14,7 +14,7 @@ const getURI = async () => {
         // const mongod = new MongoMemoryServer();
         let mongod;
         mongod = await mongodb_memory_server_1.MongoMemoryServer.create();
-        const uri = process.env.NODE_ENV == "development" ? await mongod.getUri() : (_a = process.env.DB_CONNECTION_URL) !== null && _a !== void 0 ? _a : "";
+        const uri = process.env.NODE_ENV !== "production" ? await mongod.getUri() : (_a = process.env.DB_CONNECTION_URL) !== null && _a !== void 0 ? _a : "";
         console.log("db uri ", uri);
         return uri + "drone?retryWrites=true&w=majority";
     }

@@ -7,4 +7,5 @@ node_modules/
 
 # Other Files
 package-lock.json
+yarn.lock
 info.txt
