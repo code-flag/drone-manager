@@ -1,7 +1,7 @@
 
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface IMedication extends Document {
+export interface IMedication extends Document {
   name: string;
   weight: number;
   code: string;

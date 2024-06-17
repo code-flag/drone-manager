@@ -3,6 +3,10 @@ import { droneService } from '../service/drone.service';
 import { BadRequestError } from '../exceptions/error';
 import { returnMsg } from '../helper/message-handler';
 
+/**
+ * @class - DroneController
+ * This class implement all the method to run drone service
+ */
 class DroneController {
   async registerDrone(req: Request, res: Response) {
     try {

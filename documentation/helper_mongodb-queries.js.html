@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: helper/mongodb-queries.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: helper/mongodb-queries.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>"use strict";
+/**
+ * @author Francis Olawumi Awe &lt;awefrancolaz@gmail.com>
+ * This is file contains method that maybe difficult to implement in controller directly
+ * So its being implemented for generic use
+ */
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.deleteNestedArrayOfDocument = exports.deleteRecordFromArray = exports.updateDocumentOfArray = exports.updateNestedArrayOfDocument = void 0;
+/**
+ * This method helps to update any record inside the object or document of a nested array in a document
+ * @example -
+ * { arr: [
+ *  {nestedArr: [{key: val}]}
+ * ]}
+ * @param model - Mongodb model
+ * @param queryId - this must be mongodb unique record id
+ * @param input - this is the request body for nested array data object
+ * @param docFieldName - this is the document array field name
+ * @param docObjKey - this is the key or field of one of the object or document in the array
+ * @param docMatchQuery - this is the match query for a specific obj or document inside the array
+ * @example - {email: email} or {teamId: teamId}
+ */
+const updateNestedArrayOfDocument = async (model, queryId, input, docFieldName, docObjKey, docMatchQuery) => {
+    let queryData = {};
+    Object.keys(input).forEach((key) => {
+        queryData[`${docFieldName}.$.${docObjKey}.${key}`] = input[key];
+    });
+    return await model.findOneAndUpdate({ $and: [{ "_id": queryId }, { [docFieldName]: { $elemMatch: docMatchQuery } }] }, { $set: queryData }, { "new": true });
+};
+exports.updateNestedArrayOfDocument = updateNestedArrayOfDocument;
+/**
+ * This method is used to update a single record in the nested document
+ * @example -
+ * { arr: [{key: val} ]}
+ * @param model - Mongodb model
+ * @param queryId - this must be mongodb unique record id
+ * @param input - this is the request body
+ * @param docFieldName - this is the document array field name
+ * @param docMatchQuery - this is the match query for a specific obj or document inside the array
+ * @example - {email: email} or {teamId: teamId}
+ */
+const updateDocumentOfArray = async (model, queryId, input, docFieldName, docMatchQuery) => {
+    let queryData = {};
+    Object.keys(input).forEach((key) => {
+        queryData[`${docFieldName}.$.${key}`] = input[key];
+    });
+    return await model.findOneAndUpdate({ $and: [{ "_id": queryId }, { [docFieldName]: { $elemMatch: docMatchQuery } }] }, { $set: queryData }, { 'new': true });
+};
+exports.updateDocumentOfArray = updateDocumentOfArray;
+/**
+ * This method is used to delete document from array of document using a unique field in the record
+ * @example -
+ * { arr: [{key: val}, {key2: val} ]}
+ * @param model - Mongodb model
+ * @param queryId - this must be mongodb unique record id
+ * @param input - this is the request body
+ * @param docFieldName - this is the document array field name
+ * @param docMatchQuery - this is the match query for a specific obj or document inside the array
+ * @example - {email: email} or {teamId: teamId}
+ * @returns
+ */
+const deleteRecordFromArray = async (model, queryId, docFieldName, docMatchQuery) => {
+    return await model.findOneAndUpdate({ "_id": queryId }, {
+        $pull: {
+            [docFieldName]: docMatchQuery
+        }
+    }, { safe: true });
+};
+exports.deleteRecordFromArray = deleteRecordFromArray;
+/**
+ * This method helps to update any record inside the object or document of a nested array in a document
+ * @example -
+ * { arr: [
+ *  {nestedArr: [{key: val}]}
+ * ]}
+ * @param model - Mongodb model
+ * @param queryId - this must be mongodb unique record id
+ * @param docFieldName - this is the document array field name
+ * @param docObjKey - this is the key or field of one of the object or document in the array
+ * @param docMatchQuery - this is the match query for a specific obj or document inside the array
+ * @example - {email: email} or {teamId: teamId}
+ */
+const deleteNestedArrayOfDocument = async (model, queryId, docFieldName, docObjKey, docMatchQuery) => {
+    return await model.findOneAndUpdate({ "_id": queryId }, {
+        $pull: {
+            [`${docFieldName}.$.${docObjKey}`]: docMatchQuery
+        }
+    }, { safe: true });
+};
+exports.deleteNestedArrayOfDocument = deleteNestedArrayOfDocument;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="ApplicationError.html">ApplicationError</a></li><li><a href="BadRequestError.html">BadRequestError</a></li><li><a href="ConflictError.html">ConflictError</a></li><li><a href="ForbiddenError.html">ForbiddenError</a></li><li><a href="NotFoundError.html">NotFoundError</a></li><li><a href="ProxyAuthenticationRequiredError.html">ProxyAuthenticationRequiredError</a></li><li><a href="RequestTimeoutError.html">RequestTimeoutError</a></li><li><a href="TooManyRequests.html">TooManyRequests</a></li><li><a href="UnauthorizedError.html">UnauthorizedError</a></li><li><a href="UnsupportedMediaType.html">UnsupportedMediaType</a></li></ul><h3>Global</h3><ul><li><a href="global.html#camelCaseToSeparateWords">camelCaseToSeparateWords</a></li><li><a href="global.html#default">default</a></li><li><a href="global.html#deleteData">deleteData</a></li><li><a href="global.html#deleteNestedArrayOfDocument">deleteNestedArrayOfDocument</a></li><li><a href="global.html#deleteRecordFromArray">deleteRecordFromArray</a></li><li><a href="global.html#getAndDeleteData">getAndDeleteData</a></li><li><a href="global.html#getData">getData</a></li><li><a href="global.html#getMultiData">getMultiData</a></li><li><a href="global.html#hasKey">hasKey</a></li><li><a href="global.html#isObjectKey">isObjectKey</a></li><li><a href="global.html#loggerInstance">loggerInstance</a></li><li><a href="global.html#returnMsg">returnMsg</a></li><li><a href="global.html#saveData">saveData</a></li><li><a href="global.html#serverOptions">serverOptions</a></li><li><a href="global.html#strReplaceAll">strReplaceAll</a></li><li><a href="global.html#updateDocumentOfArray">updateDocumentOfArray</a></li><li><a href="global.html#updateNestedArrayOfDocument">updateNestedArrayOfDocument</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.2</a> on Mon Jun 17 2024 20:43:47 GMT+0100 (West Africa Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

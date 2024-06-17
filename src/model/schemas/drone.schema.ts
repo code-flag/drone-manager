@@ -1,6 +1,6 @@
 import mongoose, { Schema, Document } from 'mongoose';
 
-interface IDrone extends Document {
+export interface IDrone extends Document {
   serialNumber: string;
   model: string;
   weightLimit: number;
