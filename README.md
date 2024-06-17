@@ -25,7 +25,15 @@ npm run start
 ```bash
 npm run test
 ```
+## Generate Code Documentation
+This source code documentation generation depends on source code comments
+```bash
+npm run doc
+```
 
 ## API Documentation
 
 checkout the api documentation [documentation](https://documenter.getpostman.com/view/15227628/2sA3XSAfvX) on postman.
+
+## Source Code Documentation
+You can check out the source code documentation under documentation folder which is auto generated using the doc command. You can run the index file in the folder on the browser.
