@@ -1,8 +1,23 @@
 import mongoose, { ConnectOptions } from "mongoose";
+import { MongoMemoryServer } from 'mongodb-memory-server';
 import dotenv from "dotenv";
 dotenv.config();
 
-const url: string = process.env.DB_CONNECTION_URL ?? "";
+export const getURI = async () => {
+  try {
+    // const mongod = new MongoMemoryServer();
+    let mongod: MongoMemoryServer;
+    mongod = await MongoMemoryServer.create();
+
+  const uri: string = process.env.NODE_ENV !== "production"? await mongod.getUri() : process.env.DB_CONNECTION_URL ?? "";
+  console.log("db uri ", uri);
+  return uri + "drone?retryWrites=true&w=majority";
+  } catch (error: any) {
+    console.log("uri err ", error);
+    return "";
+  }
+}
+
 
 mongoose.set("strictQuery", true);
 const options = {
@@ -10,9 +25,9 @@ const options = {
     useUnifiedTopology: true,
 };
 
-export const DBConnection = () => {
+export const DBConnection = async () => {
   mongoose.connect(
-    url,
+    await getURI(),
     options  as ConnectOptions,
     (err: any) => {
       if (err) {

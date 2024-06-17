@@ -1,5 +1,5 @@
 import { matchedData, validationResult } from "express-validator";
-import { ApplicationError } from "../helper/error";
+import { ApplicationError } from "../exceptions/error";
 
 export default (schemas: any, status: number = 400) => {
   const validationCheck: any = async (request: any, _: any, next: any) => {

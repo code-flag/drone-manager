@@ -1,13 +1,4 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.strReplaceAll = exports.asyncUploadUserData = exports.getUserAddedPerMonth = exports.camelCaseToSeparateWords = exports.isObjectKey = void 0;
 const message_handler_1 = require("./message-handler");
@@ -108,21 +99,21 @@ const getUserAddedPerMonth = (userDocs) => {
     return dataPerYear;
 };
 exports.getUserAddedPerMonth = getUserAddedPerMonth;
-const asyncUploadUserData = (inputData, response, callback) => __awaiter(void 0, void 0, void 0, function* () {
+const asyncUploadUserData = async (inputData, response, callback) => {
     let total = inputData.length;
     let successCount = 0;
     let date = new Date();
     let year = date.getFullYear();
-    let result = inputData === null || inputData === void 0 ? void 0 : inputData.map((obj) => __awaiter(void 0, void 0, void 0, function* () {
+    let result = inputData === null || inputData === void 0 ? void 0 : inputData.map(async (obj) => {
         obj["newRegNo"] = false;
         if (!Object.keys(obj).includes("regNo")) {
-            obj["regNo"] = year + "/" + (yield (0, unique_id_1.getUniqueId)(8));
+            obj["regNo"] = year + "/" + (await (0, unique_id_1.getUniqueId)(8));
             obj["newRegNo"] = true;
         }
-        const res = yield callback(obj);
+        const res = await callback(obj);
         successCount = successCount + res.result;
         return res;
-    }));
+    });
     Promise.all(result).then((x) => {
         (0, message_handler_1.returnMsg)(response, {
             totalRecord: total,
@@ -133,7 +124,7 @@ const asyncUploadUserData = (inputData, response, callback) => __awaiter(void 0,
             ? `Unable to upload record, record already exist`
             : `${successCount} user record added successfully`);
     });
-});
+};
 exports.asyncUploadUserData = asyncUploadUserData;
 /** this line is added resolve issue due to the query always replace + character with empty space */
 const strReplaceAll = (str, key) => {
