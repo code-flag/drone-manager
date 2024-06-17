@@ -16,7 +16,7 @@ npm run build
 ```
 
 ## Start Project
-
+Ensure you have run `npm run build ` command before starting the project
 ```bash
 npm run start
 ```
@@ -26,12 +26,12 @@ npm run start
 npm run test
 ```
 ## Generate Code Documentation
-This source code documentation generation depends on source code comments
+This source code documentation generation depends on source code comments. Ensure you have run `npm run build ` before running command below
 ```bash
 npm run doc
 ```
 ## Show Code Documentation in Browser
-This source code documentation generation depends on source code comments
+Ensure you have run `npm run doc ` before running command below
 ```bash
 npm run show-doc
 ```
