@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register --timeout 10000 src/tests/setup.test.ts",
     "doc": "jsdoc -c jsdoc.json",
+    "show-doc":"start documentation/index.html",
     "start": "node ./build/server.js",
     "dev": "nodemon ./build/server.js --watch",
     "build": "tsc -p .",

@@ -30,6 +30,11 @@ This source code documentation generation depends on source code comments
 ```bash
 npm run doc
 ```
+## Show Code Documentation in Browser
+This source code documentation generation depends on source code comments
+```bash
+npm run show-doc
+```
 
 ## API Documentation
 
@@ -37,3 +42,6 @@ checkout the api documentation [documentation](https://documenter.getpostman.com
 
 ## Source Code Documentation
 You can check out the source code documentation under documentation folder which is auto generated using the doc command. You can run the index file in the folder on the browser.
+```bash
+npm run show-doc
+```
